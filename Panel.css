@@ -1,0 +1,88 @@
+/* Add your custom CSS styles here */
+#googleMap {
+    height: 100vh; /* Set map height to fill the viewport */
+}
+
+#map-container {
+    position: relative; /* Make the container relative for absolute positioning */
+}
+
+#map-panel {
+    position: absolute;
+    top: 2px;
+    right: 10px;
+    z-index: 2;
+    background-color: transparent;
+    padding-bottom: 2px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Align buttons in a column */
+}
+
+.buttons {
+    display: block;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    width: 200px;
+    height: 50px;
+    text-align: left; /* Left-align the text */
+    background-color: #99C847;
+    color: white;
+    border: 1px solid #1a741c;
+    font-size: 15px;
+}
+
+#searchDiv {
+    display: none;
+    position: absolute;
+    top: 110px; /* Adjust the top position to place it right below the buttons */
+    right: 10px;
+    width: 200px; /* Same width as buttons */
+    height: 100px;
+    animation-duration: 0.5s;
+    background-color: white; /* Optional: Add a background color */
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.search-input
+{
+    height: 25px;
+}
+.search-btn
+{
+    margin-top: 10px;
+    border-radius: 14px;
+    background-color: #bed62f;
+    border: 2px solid #bed62f;
+    width: 90px;
+    height: 30px;
+    color: white;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+}

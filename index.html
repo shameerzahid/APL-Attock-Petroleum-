@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./GasStation.css">
+    <link rel="stylesheet" type="text/css" href="./Panel.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>APL Station Locator</title>
+</head>
+
+<body>
+    <div id="map-container">
+        <div id="googleMap" class="maps"></div>
+
+        <!-- Create the map panel with buttons -->
+        <div id="map-panel">
+            <button class="buttons" onclick="refreshMap()">
+                <i class="fas fa-sync-alt fa-rotate-90"></i> Refresh/All
+            </button>
+            <button class="buttons" onclick="toggleSearchTab()">
+                <i class="fa-solid fa-magnifying-glass"></i> Search
+            </button>
+        </div>
+
+        <!-- Search Div (Initially Hidden) -->
+        <div id="searchDiv">
+            <input class="search-input" type="text" placeholder="Enter a location" id="searchInput">
+            <button class="search-btn" onclick="performSearch()">
+            Search
+            </button>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+    <script src="./GasStations.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYewJ74hSNBlYFinigMawsgZ567zokNTo&callback=myMap"
+        async defer></script>
+
+    <script>
+        function refreshMap() {
+            location.reload();
+        }
+
+        function toggleSearchTab() {
+            var searchDiv = document.getElementById('searchDiv');
+
+            if (searchDiv.style.display === 'none') {
+                // Show the search div with animation
+                searchDiv.style.display = 'block';
+                searchDiv.style.animationName = 'slideDown';
+            } else {
+                // Hide the search div with animation
+                searchDiv.style.animationName = 'slideUp';
+                setTimeout(function () {
+                    searchDiv.style.display = 'none';
+                }, 500); // Adjust the timeout to match the animation duration
+            }
+        }
+
+        function performSearch() {
+            // Add logic to perform the search
+            var searchTerm = document.getElementById('searchInput').value;
+            alert('Performing search for: ' + searchTerm);
+
+            // You can add further actions related to the search here
+        }
+    </script>
+</body>
+
+</html>
