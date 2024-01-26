@@ -1,74 +1,502 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="./GasStation.css">
-    <link rel="stylesheet" type="text/css" href="./Panel.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/inter@3.15.0/dist/inter.css"
+    />
+    <link rel="stylesheet" type="text/css" href="./GasStation.css" />
+    <link rel="stylesheet" type="text/css" href="./Panel.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1dNzq7vLDxQmkioCZB_1ZCqs7YF5dN00&libraries=places&callback=initMap"
+      async
+      defer
+    ></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initMap" async defer></script> -->
     <title>APL Station Locator</title>
-</head>
-
-<body>
+  </head>
+  <style></style>
+  <body>
     <div id="map-container">
-        <div id="googleMap" class="maps"></div>
+      <div id="googleMap" class="maps"></div>
 
-        <!-- Create the map panel with buttons -->
-        <div id="map-panel">
-            <button class="buttons" onclick="refreshMap()">
-                <i class="fas fa-sync-alt fa-rotate-90"></i> Refresh/All
-            </button>
-            <button class="buttons" onclick="toggleSearchTab()">
-                <i class="fa-solid fa-magnifying-glass"></i> Search
-            </button>
-        </div>
+      <!-- Create the map panel with buttons -->
+      <div id="map-panel">
+        <button class="buttons" onclick="refreshMap()">
+          <i class="fas fa-sync-alt fa-rotate-90"></i>
+          <p>Refresh/All</p>
+        </button>
+        <button class="buttons" onclick="toggleSearchTab()">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <p>Search</p>
+        </button>
+        <button class="buttons" onclick="toggleDynamicSearchTab()">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <p>Dynamic Search</p>
+        </button>
+        <button class="buttons" onclick="toggleRouteTab()">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <p>Route planner</p>
+        </button>
+        <button class="buttons" onclick="togglekeywordTab()">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <p>Keyword</p>
+        </button>
+      </div>
 
-        <!-- Search Div (Initially Hidden) -->
-        <div id="searchDiv">
-            <input class="search-input" type="text" placeholder="Enter a location" id="searchInput">
-            <button class="search-btn" onclick="performSearch()">
+      <!-- Search Div (Initially Hidden) -->
+      <div id="searchDiv">
+        <input
+          class="search-input"
+          type="text"
+          placeholder="Enter a location"
+          id="searchInput"
+        />
+        
+        <button class="search-btn" onclick="performSearch()">Search</button>
+      </div>
+      <!--Keyword Search Div (Initially Hidden) -->
+      <div id="KeywordsearchDiv">
+        <div class="keyword">
+          <input
+            class="search-input"
+            type="text"
+            placeholder="Enter Keyword"
+            id="KeywordInput"
+          />
+          <div id="search-suggestion-container"></div>
+          <button class="search-btn" onclick="performKeywordSearch()">
             Search
-            </button>
+          </button>
         </div>
+      </div>
+      <!--Route Search Div (Initially Hidden) -->
+      <div id="RoutesearchDiv">
+        <div class="Route">
+          <div class="Routes" id="routeContainer">
+            <div class="field" data-fixed="true">
+              <p class="number">1</p>
+              <input
+                class="search-input"
+                type="text"
+                placeholder="Enter a location"
+                id="RouteInput"
+              />
+              <span class="cancel-icon" onclick="removeField(this)">✖</span>
+              <!-- add icon here for close -->
+            </div>
+            <div class="field" data-fixed="true">
+              <p class="number">2</p>
+              <input
+                class="search-input"
+                type="text"
+                placeholder="Enter a location"
+                id="RouteInput"
+              />
+              <span class="cancel-icon" onclick="removeField(this)">✖</span>
+              <!-- add icon here for close -->
+            </div>
+          </div>
+          <div class="btns">
+            <button class="search-btn" onclick="performRouteSearch()">
+              Search
+            </button>
+            <button class="search-btn" onclick="addField()">Add</button>
+          </div>
+        </div>
+      </div>
+      <!--Dynamic Search Div (Initially Hidden) -->
+      <div id="DynamicsearchDiv">
+        <div class="select-location">
+          <p class="heading">Select Location</p>
+          <input class="input" type="text" placeholder="Abbottabad" />
+          <p class="heading">Fuel</p>
+          <div class="flex">
+            <input class="checkbox" type="checkbox" />
+            <p>Supreme</p>
+          </div>
+          <div class="flex">
+            <input class="checkbox" type="checkbox" />
+            <p>Diesel</p>
+          </div>
+          <div class="flex">
+            <input class="checkbox" type="checkbox" />
+            <p>HOBC97</p>
+          </div>
+          <div class="flex">
+            <input class="checkbox" type="checkbox" />
+            <p>CNG</p>
+          </div>
+          <p class="heading">Services</p>
+          <div class="flex">
+            <input class="checkbox" type="checkbox" />
+            <p>Lubricants</p>
+          </div>
+          <div class="flex">
+            <input class="checkbox" type="checkbox" />
+            <p>Lube Expert</p>
+          </div>
+          <div class="flex">
+            <input class="checkbox" type="checkbox" />
+            <p>Tuck Shop(Timout)</p>
+          </div>
+          <div class="flex">
+            <input class="checkbox" type="checkbox" />
+            <p>Tyre Care</p>
+          </div>
+          <div class="flex">
+            <input class="checkbox" type="checkbox" />
+            <p>Speed Wash</p>
+          </div>
+          <div class="flex">
+            <input class="checkbox" type="checkbox" />
+            <p>ATM</p>
+          </div>
+          <div class="flex">
+            <input class="checkbox" type="checkbox" />
+            <p>Credit Cards</p>
+          </div>
+          <div class="flex">
+            <input class="checkbox" type="checkbox" />
+            <p>Attock Smart Fuel Card</p>
+          </div>
+
+          <button class="Dynamicsearch-btn" onclick="performDynamicSearch()">
+            Search
+          </button>
+        </div>
+      </div>
     </div>
 
     <script src="./script.js"></script>
     <script src="./GasStations.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYewJ74hSNBlYFinigMawsgZ567zokNTo&callback=myMap"
-        async defer></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1dNzq7vLDxQmkioCZB_1ZCqs7YF5dN00&callback=myMap"
+      async
+      defer
+    ></script>
 
     <script>
-        function refreshMap() {
-            location.reload();
+      var fieldNumber = 3;
+
+      function addField() {
+        var routeContainer = document.getElementById("routeContainer");
+
+        // Create a new field div
+        var newField = document.createElement("div");
+        newField.className = "field";
+
+        // Add the number
+        var number = document.createElement("p");
+        number.className = "number";
+        number.textContent = fieldNumber++;
+        newField.appendChild(number);
+
+        // Add the input field
+        var inputField = document.createElement("input");
+        inputField.className = "search-input";
+        inputField.type = "text";
+        inputField.placeholder = "Enter a location";
+        newField.appendChild(inputField);
+
+        // Add the cancel icon
+        var cancelIcon = document.createElement("span");
+        cancelIcon.className = "cancel-icon";
+        cancelIcon.textContent = "✖";
+        cancelIcon.onclick = function () {
+          removeField(this);
+        };
+        newField.appendChild(cancelIcon);
+
+        // Append the new field to the container
+        routeContainer.appendChild(newField);
+      }
+
+      function removeField(element) {
+        // Check if the field is fixed (first two fields) before removing
+        var field = element.parentNode;
+        var isFixed = field.getAttribute("data-fixed");
+
+        if (isFixed !== "true") {
+          // If not fixed, remove the field
+          field.parentNode.removeChild(field);
         }
+      }
 
-        function toggleSearchTab() {
-            var searchDiv = document.getElementById('searchDiv');
+      function refreshMap() {
+        location.reload();
+      }
 
-            if (searchDiv.style.display === 'none') {
-                // Show the search div with animation
-                searchDiv.style.display = 'block';
-                searchDiv.style.animationName = 'slideDown';
-            } else {
-                // Hide the search div with animation
-                searchDiv.style.animationName = 'slideUp';
-                setTimeout(function () {
-                    searchDiv.style.display = 'none';
-                }, 500); // Adjust the timeout to match the animation duration
+      function toggleSearchTab() {
+        var searchDiv = document.getElementById("searchDiv");
+        var Div2 = document.getElementById("DynamicsearchDiv");
+        var Div3 = document.getElementById("RoutesearchDiv");
+        var Div4 = document.getElementById("KeywordsearchDiv");
+        if (searchDiv.style.display === "none") {
+          // Show the search div with animation
+          searchDiv.style.display = "block";
+          Div2.style.display = "none";
+          Div3.style.display = "none";
+          Div4.style.display = "none";
+          searchDiv.style.animationName = "slideDown";
+        } else {
+          // Hide the search div with animation
+          searchDiv.style.animationName = "slideUp";
+          setTimeout(function () {
+            searchDiv.style.display = "none";
+          }, 500); // Adjust the timeout to match the animation duration
+        }
+      }
+      function toggleDynamicSearchTab() {
+        var DynamicsearchDiv = document.getElementById("DynamicsearchDiv");
+        var Div2 = document.getElementById("searchDiv");
+        var Div3 = document.getElementById("RoutesearchDiv");
+        var Div4 = document.getElementById("KeywordsearchDiv");
+        if (DynamicsearchDiv.style.display === "none") {
+          // Show the search div with animation
+
+          DynamicsearchDiv.style.display = "block";
+          Div2.style.display = "none";
+          Div3.style.display = "none";
+          Div4.style.display = "none";
+          DynamicsearchDiv.style.animationName = "slideDown";
+        } else {
+          // Hide the search div with animation
+          DynamicsearchDiv.style.animationName = "slideUp";
+          setTimeout(function () {
+            DynamicsearchDiv.style.display = "none";
+          }, 500); // Adjust the timeout to match the animation duration
+        }
+      }
+
+      function togglekeywordTab() {
+        var KeywordsearchDiv = document.getElementById("KeywordsearchDiv");
+        var Div2 = document.getElementById("DynamicsearchDiv");
+        var Div3 = document.getElementById("RoutesearchDiv");
+        var Div4 = document.getElementById("searchDiv");
+        if (KeywordsearchDiv.style.display === "none") {
+          // Show the search div with animation
+          KeywordsearchDiv.style.display = "block";
+          Div2.style.display = "none";
+          Div3.style.display = "none";
+          Div4.style.display = "none";
+          KeywordsearchDiv.style.animationName = "slideDown";
+        } else {
+          // Hide the search div with animation
+          KeywordsearchDiv.style.animationName = "slideUp";
+          setTimeout(function () {
+            KeywordsearchDiv.style.display = "none";
+          }, 500); // Adjust the timeout to match the animation duration
+        }
+      }
+      function toggleRouteTab() {
+        var RoutesearchDiv = document.getElementById("RoutesearchDiv");
+        var Div2 = document.getElementById("DynamicsearchDiv");
+        var Div3 = document.getElementById("KeywordsearchDiv");
+        var Div4 = document.getElementById("searchDiv");
+        if (RoutesearchDiv.style.display === "none") {
+          // Show the search div with animation
+          RoutesearchDiv.style.display = "block";
+          Div2.style.display = "none";
+          Div4.style.display = "none";
+          Div3.style.display = "none";
+          RoutesearchDiv.style.animationName = "slideDown";
+        } else {
+          // Hide the search div with animation
+          RoutesearchDiv.style.animationName = "slideUp";
+          setTimeout(function () {
+            RoutesearchDiv.style.display = "none";
+          }, 500); // Adjust the timeout to match the animation duration
+        }
+      }
+
+      function initMap() {
+        var input = document.getElementById("searchInput");
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        // Add a listener for place changed event
+        google.maps.event.addListener(
+          autocomplete,
+          "place_changed",
+          function () {
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+              return;
             }
-        }
 
-        function performSearch() {
-            // Add logic to perform the search
-            var searchTerm = document.getElementById('searchInput').value;
-            alert('Performing search for: ' + searchTerm);
+            // Update the suggestion container with the selected place information
+            var suggestionContainer = document.getElementById(
+              "search-suggestion-container"
+            );
+            suggestionContainer.innerHTML =
+              "Selected Place: " +
+              place.name +
+              "<br>" +
+              "Address: " +
+              place.formatted_address;
+          }
+        );
+      }
 
-            // You can add further actions related to the search here
+
+
+    //   perform search base on the city 
+
+      function performSearch() {
+        var searchTerm = document.getElementById("searchInput").value;
+
+        // Find the gas station data for the entered city
+        var gasStation = GasStations.find(
+          (station) => station.City.toLowerCase() === searchTerm.toLowerCase()
+        );
+
+        if (gasStation) {
+          // Extract latitude and longitude from the gas station data
+          var latitude = parseFloat(gasStation.Lati);
+          var longitude = parseFloat(gasStation.longi);
+
+          // Center the map on the gas station location
+          map.setCenter({ lat: latitude, lng: longitude });
+
+          // You may also want to add a marker to indicate the location
+          var marker = new google.maps.Marker({
+            map: map,
+            position: { lat: latitude, lng: longitude },
+            title: gasStation.CusDesc,
+          });
+
+          // Additional actions you want to perform after the search
+          // ...
+        } else {
+          alert("Gas station data not found for the city: " + searchTerm);
         }
+      }
+    
+    //   route between two cities 
+
+function performRouteSearch() {
+  var routeContainer = document.getElementById("routeContainer");
+  var routeInputs = routeContainer.getElementsByClassName("search-input");
+
+  if (routeInputs.length < 2) {
+    alert("Please enter at least two locations for routing.");
+    return;
+  }
+
+  var directionsService = new google.maps.DirectionsService();
+  var directionsRenderer = new google.maps.DirectionsRenderer();
+
+  var map = new google.maps.Map(document.getElementById("googleMap"), {
+    center: { lat: 0, lng: 0 },
+    zoom: 8,
+  });
+
+  directionsRenderer.setMap(map);
+
+  var waypoints = [];
+  for (var i = 0; i < routeInputs.length; i++) {
+    waypoints.push({
+      location: routeInputs[i].value,
+      stopover: true,
+    });
+  }
+
+  directionsService.route(
+    {
+      origin: routeInputs[0].value,
+      destination: routeInputs[routeInputs.length - 1].value,
+      waypoints: waypoints.slice(1, -1), // Exclude the origin and destination from waypoints
+      optimizeWaypoints: true,
+      travelMode: google.maps.TravelMode.DRIVING,
+    },
+    function (response, status) {
+      if (status === "OK") {
+        directionsRenderer.setDirections(response);
+      } else {
+        alert("Directions request failed due to " + status);
+      }
+    }
+  );
+}
+
+
+// Search base on keyword
+
+function performKeywordSearch() {
+    
+    var container = document.getElementById("search-suggestion-container")
+  var keywordInput = document.getElementById("KeywordInput").value.toLowerCase();
+  var suggestionContainer = document.getElementById("search-suggestion-container");
+  suggestionContainer.innerHTML = '';
+
+  // Filter GasStations array based on the entered keyword
+  var matchingStations = GasStations.filter(station =>
+    station.CusAddress.toLowerCase().includes(keywordInput)
+  );
+
+  // Display suggestions
+  if (matchingStations.length > 0) {
+    container.style.display = "block";
+    matchingStations.forEach(station => {
+      var suggestion = document.createElement("div");
+      suggestion.className = "suggestion";
+      suggestion.textContent = station.CusAddress;
+      suggestion.style.paddingBottom = "5px";
+      suggestion.style.cursor = "pointer";
+       // Add a hover effect to change opacity
+       suggestion.addEventListener("mouseenter", function () {
+        suggestion.style.opacity = "0.8";
+      });
+
+      suggestion.addEventListener("mouseleave", function () {
+        suggestion.style.opacity = "1";
+      });
+      // Add a click event listener to perform actions when suggestion is clicked
+      suggestion.addEventListener("click", function () {
+        // Perform actions when a suggestion is clicked (e.g., show on map)
+        // You can customize this based on your requirements
+        showOnMap(station);
+      });
+
+      suggestionContainer.appendChild(suggestion);
+    });
+  } else {
+    container.style.display = "none";
+    // Display a message when no matching suggestions are found
+    var noResultsMessage = document.createElement("div");
+    noResultsMessage.textContent = "No matching results found";
+    suggestionContainer.appendChild(noResultsMessage);
+  }
+}
+
+function showOnMap(station) {
+  // Perform actions to show the selected station on the map
+  // You can customize this based on your requirements
+  var latitude = parseFloat(station.Lati);
+  var longitude = parseFloat(station.longi);
+
+  // Center the map on the gas station location
+  map.setCenter({ lat: latitude, lng: longitude });
+
+  // You may also want to add a marker to indicate the location
+  var marker = new google.maps.Marker({
+    map: map,
+    position: { lat: latitude, lng: longitude },
+    title: station.CusDesc,
+  });
+
+  // Additional actions you want to perform after showing on the map
+  // ...
+}
     </script>
-</body>
-
+  </body>
 </html>
