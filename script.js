@@ -143,7 +143,7 @@ function displayStationInfo(marker, gasStation) {
 
     
     // add image here
-    infoContent += "<div class='my-bookmark' onclick='addToBookmark(\"" + gasStation.CusDesc + "\", \"" + gasStation.CusAddress + "\", " + gasStation.Lati + ", " + gasStation.longi + ")'><img class='book-img' src='./images/Bookemark.svg'>Add To Bookmark  </div>";
+    infoContent += "<div class='my-bookmark' onclick='addToBookmark(\"" + gasStation.CusDesc + "\", \"" + gasStation.CusAddress + "\", " + gasStation.Lati + ", " + gasStation.longi + ")'><img class='book-img' src='./Vector.png'>Add To Bookmark  </div>";
 
 
   infoContent += "<h2 class='info-heading'>Services</h2>";
