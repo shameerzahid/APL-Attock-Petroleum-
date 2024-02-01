@@ -14,6 +14,11 @@
  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   /* left: 65%; */
 }
+
+.img-flex{
+  display: flex;
+  margin-right: 20px;
+}
 .center {
   display: flex;
   align-items: center;
@@ -188,7 +193,9 @@ input {
   line-height: 26px;
   margin-right: 10px;
 }
-
+button{
+  cursor: pointer;
+}
 .Dyn-Search-input {
   width: 92%;
   margin-left: 15px;

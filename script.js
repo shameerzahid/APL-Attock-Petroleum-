@@ -15,26 +15,26 @@ function myMap() {
         var mapProp = {
           center: currentLocation,
           zoom: 15,
-          styles: [
-            {
-              elementType: "geometry",
-              stylers: [{ color: "#ffffff" }],
-            },
-            {
-              elementType: "labels.text.stroke",
-              stylers: [{ color: "#ffffff" }],
-            },
-            {
-              elementType: "labels.text.fill",
-              stylers: [{ color: "#000000" }],
-            },
-            {
-              featureType: "administrative.locality",
-              elementType: "labels.text.fill",
-              stylers: [{ color: "#000000" }],
-            },
-            // Add more style rules as needed
-          ],
+        //   styles: [
+        //     {
+        //       elementType: "geometry",
+        //       stylers: [{ color: "#ffffff" }],
+        //     },
+        //     {
+        //       elementType: "labels.text.stroke",
+        //       stylers: [{ color: "#ffffff" }],
+        //     },
+        //     {
+        //       elementType: "labels.text.fill",
+        //       stylers: [{ color: "#000000" }],
+        //     },
+        //     {
+        //       featureType: "administrative.locality",
+        //       elementType: "labels.text.fill",
+        //       stylers: [{ color: "#000000" }],
+        //     },
+        //     // Add more style rules as needed
+        //   ],
         };
 
         map = new google.maps.Map(
@@ -68,6 +68,7 @@ function myMap() {
   } else {
     handleLocationError(false, infoWindow, map.getCenter());
   }
+  
 }
 
 function addMarker(gasStation) {
@@ -132,12 +133,19 @@ function displayStationInfo(marker, gasStation) {
     " , " +
     gasStation.longi +
     "</p>"; // Add Coordinates
+
   infoContent += "<h2 class='info-heading'>Fuel:</h2>";
   // Iterate over Fuel Types and add them to the info window
   infoContent +=
     "<p class='info-text'>" +
     Object.keys(gasStation["Fuel Types"][0]).join(", ") +
     "</p>";
+
+    
+    // add image here
+    infoContent += "<div class='my-bookmark' onclick='addToBookmark(\"" + gasStation.CusDesc + "\", \"" + gasStation.CusAddress + "\", " + gasStation.Lati + ", " + gasStation.longi + ")'><img class='book-img' src='./images/Bookemark.svg'>Add To Bookmark  </div>";
+
+
   infoContent += "<h2 class='info-heading'>Services</h2>";
   // Iterate over Services and add only the service descriptions to the info window
   gasStation.Services.forEach((service) => {
@@ -613,3 +621,31 @@ function showOnMap(station) {
 // function handleLocationError(browserHasGeolocation, infoWindow, currentLocation) {
 //     // Handle errors here
 // }
+// Initialize an empty array to store bookmarks
+var bookmarks = [];
+
+function addToBookmark(CusDesc, CusAdd, Lati, longi) {
+  // Retrieve existing bookmarks from the cookie
+  var existingBookmarks = getBookmarks();
+
+  // Create an object with the bookmark information
+  var bookmarkInfo = {
+    CusDesc: CusDesc,
+    CusAdd: CusAdd,
+    Lati: Lati,
+    longi: longi
+  };
+
+  // Add the new bookmark to the existing bookmarks
+  existingBookmarks.push(bookmarkInfo);
+
+  // Convert the array to a JSON string
+  var bookmarksJSON = JSON.stringify(existingBookmarks);
+
+  // Set the combined bookmarks in the cookie
+  document.cookie = "bookmarks=" + encodeURIComponent(bookmarksJSON) + "; path=/";
+
+  // You can also set an expiration time if needed, e.g., expires=Sun, 01 Jan 2023 00:00:00 GMT
+  initBookmarkDisplay();
+  // You can perform additional actions as needed
+}

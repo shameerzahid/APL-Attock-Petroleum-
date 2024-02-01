@@ -16804,7 +16804,7 @@ GasStations = [
                         "HSD": "1",
                         "XTRON": "1",
                         "PMG": "1",
-                        "CNG": "1"
+                      
                     }
                 ],
                 "City": "Daska",

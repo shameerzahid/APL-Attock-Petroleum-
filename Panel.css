@@ -3,7 +3,9 @@
     height: 100vh;
     /* z-index: 2; Set map height to fill the viewport */
 }
-
+body{
+    font-family: "Inter", sans-serif;
+}
 #map-container {
     position: relative; /* Make the container relative for absolute positioning */
 }
@@ -20,7 +22,21 @@
     display: flex;
     flex-direction: column; /* Align buttons in a column */
 }
+.my-bookmark{
+    font-size: 15px;
+cursor: pointer;
+    font-weight: 500;
+    margin-top: 10px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
 
+}
+.book-img{
+    width: 15px ;
+    margin-right: 5px;
+    /* margin-top: 10px; */
+}
 .buttons {
     display: block;
     margin-bottom: 5px;
