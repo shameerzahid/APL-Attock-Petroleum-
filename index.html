@@ -298,12 +298,12 @@
               </li>
               <!-- Route div on click  -->
               <div id="open-RoutePlanner" class="route-planner">
-                <div class="green">
+                <div id="Route-Container" class="green">
                   <img class="line" src="./Images/line.svg" alt="line" />
                   <p class="center">
                     <img src="/Images/magnify.svg" alt="magnify" />
                     <input
-                      class="input input-route"
+                      class="input input-route Routesearch-input"
                       type="text"
                       placeholder="Abbottabad"
                       id="RouteInputFrom"
@@ -313,7 +313,7 @@
                   <p class="center isl">
                     <img src="./Images/loc.svg" alt="route" />
                     <input
-                      class="input input-route"
+                      class="input input-route Routesearch-input"
                       type="text"
                       placeholder="Islamabad"
                       id="RouteInputTo"
@@ -480,7 +480,7 @@ function logCheckedCheckboxes() {
   var selectedFuelTypes = checkedFuelLabels;
   var selectedServices = checkedServiceLabels;
 
-  var checkboxesChecked = selectedFuelTypes.length > 0 || selectedServices.length > 0;
+  var checkboxesChecked = selectedFuelTypes.length > 0 && selectedServices.length > 0; // Use && instead of ||
 
   var filteredGasStations = GasStations.filter(function (gasStation) {
     var cityMatch = gasStation.City.toLowerCase().includes(userInput);
@@ -489,16 +489,16 @@ function logCheckedCheckboxes() {
       // Check if the fuel type is present in the gas station's Fuel Types array
       return gasStation['Fuel Types'][0][fuelType] === '1';
     });
-console.log('Checked Fuel Checkboxes Matched Gas Stations:', fuelMatch);
-var serviceMatch = checkboxesChecked && selectedServices.some(function (selectedService) {
-  // Check if the selected service is included in the gas station's Services array
-  return gasStation.Services.some(function (service) {
-    // Compare the lowercase version of the selected service with the lowercase version of the service checkbox label
-    return selectedService.toLowerCase() === service.ServiceDes.toLowerCase();
-  });
-});
 
-    return cityMatch && (!checkboxesChecked || (fuelMatch || serviceMatch));
+    var serviceMatch = checkboxesChecked && selectedServices.some(function (selectedService) {
+      // Check if the selected service is included in the gas station's Services array
+      return gasStation.Services.some(function (service) {
+        // Compare the lowercase version of the selected service with the lowercase version of the service checkbox label
+        return selectedService.toLowerCase() === service.ServiceDes.toLowerCase();
+      });
+    });
+
+    return cityMatch && (!checkboxesChecked || (fuelMatch && serviceMatch)); // Use && instead of ||
   });
 
   displayGasStations(filteredGasStations, 'Dynamicsearch-results');

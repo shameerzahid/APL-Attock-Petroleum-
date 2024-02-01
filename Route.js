@@ -1,74 +1,97 @@
-document.getElementById("RouteInputFrom").addEventListener("input", generateRouteOnInput);
-    document.getElementById("RouteInputTo").addEventListener("input", generateRouteOnInput);
-  
-    function generateRouteOnInput() {
-        const inputFrom = document.getElementById("RouteInputFrom").value.toLowerCase();
-        const inputTo = document.getElementById("RouteInputTo").value.toLowerCase();
-  
-        const filteredStations = GasStations.filter((station) => {
-            return (
-                station.City.toLowerCase().includes(inputFrom) ||
-                station.City.toLowerCase().includes(inputTo)
-            );
-        });
-  
-        displayRouteResults(filteredStations);
-  
-        if (filteredStations.length >= 2) {
-            const origin = filteredStations[0];
-            const destination = filteredStations[1];
-            calculateAndDisplayRoute(origin, destination);
-        }
+var map; // Declare map globally to make it accessible in other functions
+
+function generateRouteOnInput() {
+    var routeContainer = document.getElementById("Route-Container");
+    var routeInputs = routeContainer.getElementsByClassName("Routesearch-input");
+
+    // Check if both RouteSearch-Inputs have values
+    if (!routeInputs[0].value || !routeInputs[1].value) {
+        console.log("Please enter both starting and ending locations for routing.");
+        return;
     }
-  
-    function displayRouteResults(stations) {
-        const resultsContainer = document.getElementById("Route-results");
-        resultsContainer.innerHTML = "";
-  
-        stations.forEach((station, index) => {
-            const listItem = document.createElement("div");
-            listItem.classList.add("list");
-            listItem.innerHTML = `
-                  <p class="number">${index + 1}</p>
-                  <div>
-                      <p class="p1 margin2">${station.CusDesc}</p>
-                      <p class="p2 margin2">${station.CusAddress}</p>
-                  </div>
-                  <div>
-                      <img src="./Images/go.svg" alt="" onclick="moveToLocation(${station.Lati}, ${station.longi})"/>
-                  </div>
-              `;
-  
-            resultsContainer.appendChild(listItem);
+
+    var directionsService = new google.maps.DirectionsService();
+    var directionsRenderer = new google.maps.DirectionsRenderer();
+
+    map = new google.maps.Map(document.getElementById("googleMap"), {
+        center: { lat: 0, lng: 0 },
+        zoom: 8,
+    });
+
+    directionsRenderer.setMap(map);
+
+    var waypoints = [];
+    for (var i = 0; i < routeInputs.length; i++) {
+        waypoints.push({
+            location: routeInputs[i].value,
+            stopover: true,
         });
     }
-  
-    function moveToLocation(latitude, longitude) {
-        var location = new google.maps.LatLng(latitude, longitude);
-        map.setCenter(location);
-        var infoWindow = new google.maps.InfoWindow({
-            content: "Gas Station Information",
-        });
-        infoWindow.open(map, marker);
-    }
-  
-    function calculateAndDisplayRoute(origin, destination) {
-        const directionsService = new google.maps.DirectionsService();
-        const directionsRenderer = new google.maps.DirectionsRenderer();
-  
-        directionsRenderer.setMap(map);
-  
-        const request = {
-            origin: origin.CusAddress,
-            destination: destination.CusAddress,
+
+    directionsService.route(
+        {
+            origin: routeInputs[0].value,
+            destination: routeInputs[1].value,
+            waypoints: waypoints.slice(1, -1), // Exclude the origin and destination from waypoints
+            optimizeWaypoints: true,
             travelMode: google.maps.TravelMode.DRIVING,
-        };
-  
-        directionsService.route(request, function (result, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-                directionsRenderer.setDirections(result);
+        },
+        function (response, status) {
+            if (status === "OK") {
+                directionsRenderer.setDirections(response);
             } else {
-                console.error("Directions request failed due to " + status);
+                alert("Directions request failed due to " + status);
             }
-        });
-    }
+        }
+    );
+
+    // Call the function to display results containing all data with the same city names
+    displayRouteResults(GasStations.filter(station =>
+        station.City.toLowerCase() === routeInputs[0].value.toLowerCase() ||
+        station.City.toLowerCase() === routeInputs[1].value.toLowerCase()
+    ));
+}
+
+function displayRouteResults(stations) {
+    const resultsContainer = document.getElementById("Route-results");
+    resultsContainer.innerHTML = "";
+
+    stations.forEach((station, index) => {
+        const listItem = document.createElement("div");
+        listItem.classList.add("list");
+        listItem.innerHTML = `
+              <p class="number">${index + 1}</p>
+              <div>
+                  <p class="p1 margin2">${station.CusDesc}</p>
+                  <p class="p2 margin2">${station.CusAddress}</p>
+              </div>
+              <div>
+                  <img src="./Images/go.svg" alt="" onclick="moveToLocation(${station.Lati}, ${station.longi}, '${station.CusDesc}')"/>
+              </div>
+          `;
+
+        resultsContainer.appendChild(listItem);
+    });
+}
+
+function moveToLocation(latitude, longitude, stationName) {
+    var location = new google.maps.LatLng(latitude, longitude);
+
+    // Create a marker for the gas station
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        title: stationName,
+    });
+
+    // Center the map to the gas station's location
+    map.setCenter(location);
+
+    // Create an info window with gas station information
+    var infoWindow = new google.maps.InfoWindow({
+        content: "Gas Station Information: " + stationName,
+    });
+
+    // Open the info window at the marker
+    infoWindow.open(map, marker);
+}

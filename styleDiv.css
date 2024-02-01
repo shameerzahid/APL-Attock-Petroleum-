@@ -137,6 +137,7 @@ input {
   margin: 0 10px;
   width: 100%;
   display: flex;
+  border-bottom: 1px solid #bababa;
   align-items: center;
   justify-content: start;
 }
