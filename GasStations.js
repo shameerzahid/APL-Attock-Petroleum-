@@ -18224,10 +18224,10 @@ GasStations=  [
         "Services": [],
         "CusCode": "20101008100020003001",
         "CNGPrice": "0",
-        "Sub_Region": "COCO-PSH",
+       "District": "Dera Ismail Khan",
+          "Sub_Region": "COCO-PSH",
         "Region": "COCO",
-        "District": "Dera Ismail Khan",
-        "PMGPrice": "273.7951",
+       "PMGPrice": "273.7951",
         "IsPlanningAllowed": "false"
     },
     {

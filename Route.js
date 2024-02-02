@@ -1,12 +1,6 @@
 var map; // Declare map globally to make it accessible in other functions
-
+var infoWindow = new google.maps.InfoWindow();
 function generateRouteOnInput() {
-    if (!map) {
-        map = new google.maps.Map(document.getElementById("googleMap"), {
-            center: { lat: 0, lng: 0 },
-            zoom: 8,
-        });
-    }
     var routeContainer = document.getElementById("Route-Container");
     var routeInputs = routeContainer.getElementsByClassName("Routesearch-input");
 
@@ -46,7 +40,7 @@ function generateRouteOnInput() {
             if (status === "OK") {
                 directionsRenderer.setDirections(response);
             } else {
-                alert("Directions request failed due to " + status);
+                // alert("Directions request failed due to " + status);
             }
         }
     );
@@ -77,9 +71,65 @@ function displayRouteResults(stations) {
           `;
 
         resultsContainer.appendChild(listItem);
+        createMarker(station.Lati, station.longi, station.CusDesc,station);
+    });
+    GasStations.forEach((station) => {
+        createMarker(station.Lati, station.longi, station.CusDesc, station);
     });
 }
 
+var markers = [];
+
+// Function to create a marker on the map
+function createMarker(latitude, longitude, stationName, stationData) {
+    var location = new google.maps.LatLng(latitude, longitude);
+
+    // Create a marker for the gas station with the custom image
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        title: stationName,
+        icon: {
+            url: './attock-petroleum.png',
+            scaledSize: new google.maps.Size(30, 30),
+        },
+    });
+
+    // Add a click event listener to the marker
+    marker.addListener('click', function () {
+        displayStationInformation(stationData);
+        moveToLocation(latitude, longitude, stationName);
+    });
+
+    // Add the marker to the markers array
+    markers.push(marker);
+}
+
+function displayStationInformation(gasStation) {
+    var distance = calculateDistance(currentLocation, { lat: parseFloat(gasStation.Lati), lng: parseFloat(gasStation.longi) });
+
+    var infoContent = "<div class='click-window'>";
+    infoContent += "<h2 class='info-title'>" + gasStation.CusDesc + "</h2>";
+    infoContent += "<h2 class='info-heading'>Site ID:</h2>";
+    infoContent += "<p class='info-text'>" + gasStation.CusCode + "</p>";
+    infoContent += "<h2 class='info-heading'>Distance:</h2>";
+    infoContent += "<p class='info-text'>Distance: " + distance.toFixed(2) + " km</p>";
+    infoContent += "<h2 class='info-heading'>Coordinates:</h2>";
+    infoContent += "<p class='info-text'>" + gasStation.Lati + " , " + gasStation.longi + "</p>";
+    infoContent += "<h2 class='info-heading'>Fuel:</h2>";
+    infoContent += "<p class='info-text'>" + Object.keys(gasStation["Fuel Types"][0]).join(", ") + "</p>";
+    infoContent += "<div class='my-bookmark' onclick='addToBookmark(\"" + gasStation.CusDesc + "\", \"" + gasStation.CusAddress + "\", " + gasStation.Lati + ", " + gasStation.longi + ")'><img class='book-img' src='./Vector.png'>Add To Bookmark  </div>";
+    infoContent += "<h2 class='info-heading'>Services</h2>";
+    gasStation.Services.forEach((service) => {
+        infoContent += "<p class='info-text'>Service: " + service.ServiceDes + "</p>";
+    });
+    infoContent += "<h2 class='info-heading'>Contact:</h2>";
+    infoContent += "<p class='info-text'>" + gasStation.CusAddress + "</p>";
+    infoContent += "</div>";
+
+    infoWindow.setContent(infoContent);
+    infoWindow.open(map, markers[markers.length - 1]);
+}
 function moveToLocation(latitude, longitude, stationName) {
     var location = new google.maps.LatLng(latitude, longitude);
 
@@ -94,10 +144,43 @@ function moveToLocation(latitude, longitude, stationName) {
     map.setCenter(location);
 
     // Create an info window with gas station information
-    var infoWindow = new google.maps.InfoWindow({
-        content: "Gas Station Information: " + stationName,
-    });
+    // var infoWindow = new google.maps.InfoWindow({
+    //     content: "Gas Station Information: " + stationName,
+    // });
 
     // Open the info window at the marker
     infoWindow.open(map, marker);
+}
+var bookmarks = [];
+
+function addToBookmark(CusDesc, CusAdd, Lati, longi) {
+    // Retrieve existing bookmarks from the cookie
+    var existingBookmarks = getBookmarks();
+
+    // Create an object with the bookmark information
+    var bookmarkInfo = {
+        CusDesc: CusDesc,
+        CusAdd: CusAdd,
+        Lati: Lati,
+        longi: longi
+    };
+
+    // Add the new bookmark to the existing bookmarks
+    existingBookmarks.push(bookmarkInfo);
+
+    // Convert the array to a JSON string
+    var bookmarksJSON = JSON.stringify(existingBookmarks);
+
+    // Set the combined bookmarks in the cookie
+    document.cookie = "bookmarks=" + encodeURIComponent(bookmarksJSON) + "; path=/";
+
+    // You can also set an expiration time if needed, e.g., expires=Sun, 01 Jan 2023 00:00:00 GMT
+    initBookmarkDisplay();
+    // You can perform additional actions as needed
+
+    // Change the opacity of the bookmark button to indicate that it has been clicked
+    var bookmarkButton = document.querySelector(".my-bookmark");
+    if (bookmarkButton) {
+        bookmarkButton.style.opacity = 0.5; // Set the desired opacity value
+    }
 }

@@ -74,6 +74,15 @@
         ? "rotate(0deg)"
         : "rotate(180deg)";
   }
+  function reloadPageAndToggleKeywordSearch() {
+    // Reload the page
+    location.reload();
+
+    // Set a timeout to delay showing the KeywordSearch div after the page reloads
+    setTimeout(function () {
+        toggleKeywordSearch();
+    }, 1000); // You can adjust the timeout duration as needed
+}
 
   //   open keyword search
   function toggleKeywordSearch() {

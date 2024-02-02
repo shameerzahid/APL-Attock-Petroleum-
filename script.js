@@ -623,17 +623,16 @@ function showOnMap(station) {
 // }
 // Initialize an empty array to store bookmarks
 var bookmarks = [];
-
 function addToBookmark(CusDesc, CusAdd, Lati, longi) {
   // Retrieve existing bookmarks from the cookie
   var existingBookmarks = getBookmarks();
 
   // Create an object with the bookmark information
   var bookmarkInfo = {
-    CusDesc: CusDesc,
-    CusAdd: CusAdd,
-    Lati: Lati,
-    longi: longi
+      CusDesc: CusDesc,
+      CusAdd: CusAdd,
+      Lati: Lati,
+      longi: longi
   };
 
   // Add the new bookmark to the existing bookmarks
@@ -648,4 +647,11 @@ function addToBookmark(CusDesc, CusAdd, Lati, longi) {
   // You can also set an expiration time if needed, e.g., expires=Sun, 01 Jan 2023 00:00:00 GMT
   initBookmarkDisplay();
   // You can perform additional actions as needed
+
+  // Change the opacity of the bookmark button to indicate that it has been clicked
+  var bookmarkButton = document.querySelector(".my-bookmark");
+  if (bookmarkButton) {
+      bookmarkButton.style.opacity = 0.5; // Set the desired opacity value
+  }
 }
+
