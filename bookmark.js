@@ -13,48 +13,63 @@
   }
 
   // Create a function to initialize the bookmark display
-  function initBookmarkDisplay() {
-    var bookmarks = getBookmarks();
-    var bookmarkContainer = document.getElementById("open-Bookmark");
-    bookmarkContainer.innerHTML = ""; // Clear existing content
+ // ... (your existing code)
 
-    // Display each bookmark
-    bookmarks.forEach(function (bookmark, index) {
-      var bookmarkItem = document.createElement("div");
-      bookmarkItem.className = "bookmarkItem";
-      bookmarkItem.innerHTML = `
-        <div class="list bookmark-list">
-          <p class="number">${index + 1}</p>
-          <div>
-            <p class=" p1 margin">${bookmark.CusDesc}</p>
-            <p class="p2  margin">${bookmark.CusAdd}</p>
-          </div>
-          <div class="img-flex">
-            <img onclick="removeBookmark(${index})" src="./Images/unmarkit.svg" alt="unmark" />
-            <img src="./Images/go.svg" alt="go" onclick="navigateToBookmark(${bookmark.Lati}, ${bookmark.longi})" />
-          </div>
-        </div>`;
-      bookmarkContainer.appendChild(bookmarkItem);
-    });
-  }
+function initBookmarkDisplay() {
+  var bookmarks = getBookmarks();
+  var bookmarkContainer = document.getElementById("open-Bookmark");
+  bookmarkContainer.innerHTML = ""; // Clear existing content
 
-  // Create a function to navigate to a bookmarked location
-  function navigateToBookmark(latitude, longitude) {
-    // Replace the following line with your code to navigate to the specified latitude and longitude
-    var location = new google.maps.LatLng(latitude, longitude);
+  // Display each bookmark
+  bookmarks.forEach(function (bookmark, index) {
+    var bookmarkItem = document.createElement("div");
+    bookmarkItem.className = "bookmarkItem";
+    bookmarkItem.innerHTML = `
+      <div class="list bookmark-list">
+        <p class="number">${index + 1}</p>
+        <div>
+          <p class=" p1 margin">${bookmark.CusDesc}</p>
+          <p class="p2  margin">${bookmark.CusAdd}</p>
+        </div>
+        <div class="img-flex">
+          <img onclick="removeBookmark(${index})" src="./Images/unmarkit.svg" alt="unmark" />
+          <img src="./Images/go.svg" alt="go" onclick="navigateToBookmark('${bookmark.CusDesc}', '${bookmark.CusAdd}', ${bookmark.Lati}, ${bookmark.longi})" />
+        </div>
+      </div>`;
 
-    // Center the map on the specified location
-    map.setCenter(location);
+    bookmarkContainer.appendChild(bookmarkItem);
+  });
+}
 
-    // Optionally, you can open an info window with additional information
-    var infoWindow = new google.maps.InfoWindow({
-      content: "Gas Station Information",
-      // You can customize the content based on GasStation object properties
-    });
+function navigateToBookmark(CusDesc, CusAdd, latitude, longitude) {
+  // Replace the following line with your code to navigate to the specified latitude and longitude
+  var location = new google.maps.LatLng(latitude, longitude);
 
-    // Open the info window
-    infoWindow.open(map, marker);
-  }
+  // Center the map on the specified location
+  map.setCenter(location);
+  console.log("CusDesc:", CusDesc);
+  console.log("CusAdd:", CusAdd);
+  console.log("Latitude:", latitude);
+  console.log("Longitude:", longitude);
+
+  // Optionally, you can open an info window with additional information
+  // var infoWindow = new google.maps.InfoWindow({
+  //   content: "Gas Station Information",
+  //   // You can customize the content based on GasStation object properties
+  // });
+
+  // Open the info window
+  infoWindow.open(map, marker);
+}
+
+// ... (your existing code)
+
+
+
+
+
+
+
 
   // Initialize bookmark display when the page loads
   window.onload = function () {

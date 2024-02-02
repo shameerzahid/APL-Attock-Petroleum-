@@ -1,8 +1,8 @@
-function refreshMap() {
-    location.reload();
+// function refreshMap() {
+//     location.reload();
    
-  }
-  // script.js
+//   }
+//   // script.js
 
     function searchGasStations() {
     

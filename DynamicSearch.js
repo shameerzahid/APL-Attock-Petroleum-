@@ -153,8 +153,9 @@ function DynamicsearchGasStations() {
     }
 
     // Function to move to a specific location on the map
-    function moveToLocation(latitude, longitude) {
+    function moveToLocation(latitude, longitude,station) {
       var map = /* your map object, e.g., */ google.maps.Map; // Replace with the actual map object
       var newLatLng = new google.maps.LatLng(latitude, longitude);
       map.panTo(newLatLng);
+      
     }

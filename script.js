@@ -94,17 +94,17 @@ function addMarker(gasStation) {
   gasStationMarker.addListener("mouseout", function () {
     hoverInfoWindow.close();
   });
-  function displayHoverInfo(marker, gasStation) {
-    var hoverInfoContent = "<div class='hover-window'>"; // Set your desired maximum width in pixels
-    hoverInfoContent +=
-      "<h2 class='hover-title'>" + gasStation.CusDesc + "</h2>";
-    hoverInfoContent +=
-      "<p class='hover-text'>" + gasStation.CusAddress + "</p>"; // Add address
-    hoverInfoContent += "</div>";
+  // function displayHoverInfo(marker, gasStation) {
+  //   var hoverInfoContent = "<div class='hover-window'>"; // Set your desired maximum width in pixels
+  //   hoverInfoContent +=
+  //     "<h2 class='hover-title'>" + gasStation.CusDesc + "</h2>";
+  //   hoverInfoContent +=
+  //     "<p class='hover-text'>" + gasStation.CusAddress + "</p>"; // Add address
+  //   hoverInfoContent += "</div>";
 
-    hoverInfoWindow.setContent(hoverInfoContent);
-    hoverInfoWindow.open(map, marker);
-  }
+  //   hoverInfoWindow.setContent(hoverInfoContent);
+  //   hoverInfoWindow.open(map, marker);
+  // }
 
   gasStationMarker.addListener("click", function () {
     displayStationInfo(gasStationMarker, gasStation);

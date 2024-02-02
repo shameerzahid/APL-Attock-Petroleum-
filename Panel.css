@@ -147,6 +147,10 @@ cursor: pointer;
     height: 30px;
     color: white;
 }
+.gm-style-mtc-bbw .gm-style-mtc:last-of-type>button {
+    background: #BED62F !important;
+}
+.gm-style-mtc-bbw {top: 80px !important;}
 .Dynamicsearch-btn
 {
     margin: 10px 0;
