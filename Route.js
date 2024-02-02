@@ -1,6 +1,12 @@
 var map; // Declare map globally to make it accessible in other functions
 
 function generateRouteOnInput() {
+    if (!map) {
+        map = new google.maps.Map(document.getElementById("googleMap"), {
+            center: { lat: 0, lng: 0 },
+            zoom: 8,
+        });
+    }
     var routeContainer = document.getElementById("Route-Container");
     var routeInputs = routeContainer.getElementsByClassName("Routesearch-input");
 

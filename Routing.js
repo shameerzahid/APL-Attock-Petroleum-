@@ -77,6 +77,7 @@
 
   //   open keyword search
   function toggleKeywordSearch() {
+   
     var searchDiv = document.getElementById("open-search");
     var dynamicSearchDiv = document.getElementById("open-DynamicSearch");
     var RoutePlanning = document.getElementById("open-RoutePlanner");
@@ -98,6 +99,10 @@
       KeywordSearch.style.display === "none"
         ? "rotate(0deg)"
         : "rotate(180deg)";
+       
+
+    // Set a timeout to delay showing the KeywordSearch div after the map reloads
+
   }
 
 
