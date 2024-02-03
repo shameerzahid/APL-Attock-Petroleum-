@@ -1,20 +1,16 @@
- // Function to retrieve bookmarks from cookies
- function getBookmarks() {
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var cookieArray = decodedCookie.split(";");
-    for (var i = 0; i < cookieArray.length; i++) {
-      var cookie = cookieArray[i].trim();
-      if (cookie.startsWith("bookmarks=")) {
-        var bookmarksJSON = cookie.substring("bookmarks=".length);
-        return JSON.parse(bookmarksJSON);
-      }
+// Function to retrieve bookmarks from cookies
+function getBookmarks() {
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var cookieArray = decodedCookie.split(";");
+  for (var i = 0; i < cookieArray.length; i++) {
+    var cookie = cookieArray[i].trim();
+    if (cookie.startsWith("bookmarks=")) {
+      var bookmarksJSON = cookie.substring("bookmarks=".length);
+      return JSON.parse(bookmarksJSON);
     }
-    return [];
   }
-
-  // Create a function to initialize the bookmark display
- // ... (your existing code)
-
+  return [];
+}
 function initBookmarkDisplay() {
   var bookmarks = getBookmarks();
   var bookmarkContainer = document.getElementById("open-Bookmark");
@@ -22,69 +18,102 @@ function initBookmarkDisplay() {
 
   // Display each bookmark
   bookmarks.forEach(function (bookmark, index) {
-    var bookmarkItem = document.createElement("div");
-    bookmarkItem.className = "bookmarkItem";
-    bookmarkItem.innerHTML = `
-      <div class="list bookmark-list">
-        <p class="number">${index + 1}</p>
-        <div>
-          <p class=" p1 margin">${bookmark.CusDesc}</p>
-          <p class="p2  margin">${bookmark.CusAdd}</p>
-        </div>
-        <div class="img-flex">
-          <img onclick="removeBookmark(${index})" src="./Images/unmarkit.svg" alt="unmark" />
-          <img src="./Images/go.svg" alt="go" onclick="navigateToBookmark('${bookmark.CusDesc}', '${bookmark.CusAdd}', ${bookmark.Lati}, ${bookmark.longi})" />
-        </div>
-      </div>`;
+      var bookmarkItem = document.createElement("div");
+      bookmarkItem.className = "bookmarkItem";
+      bookmarkItem.innerHTML = `
+          <div class="list bookmark-list">
+              <p class="number">${index + 1}</p>
+              <div>
+                  <p class=" p1 margin">${bookmark.CusDesc}</p>
+                  <p class="p2  margin">${bookmark.CusAdd}</p>
+              </div>
+              <div class="img-flex">
+                  <img onclick="removeBookmark(${index})" src="./Images/unmarkit.svg" alt="unmark" />
+                  <img class="show-me" src="./Images/go.svg" alt="go" />
+              </div>
+          </div>`;
 
-    bookmarkContainer.appendChild(bookmarkItem);
+      bookmarkContainer.appendChild(bookmarkItem);
+
+      // Add event listener to the "go" image
+      var goImg = bookmarkItem.querySelector('.show-me');
+      goImg.addEventListener('click', function () {
+        console.log("CusDesc:", bookmark.CusDesc);
+        console.log("CusAdd:", bookmark.CusAdd);
+        console.log("Latitude:", bookmark.Lati);
+        console.log("Longitude:", bookmark.longi);
+    
+        // Create a marker at the specified location
+        var location = new google.maps.LatLng(bookmark.Lati, bookmark.longi);
+    
+        // Assuming `map` is a global variable containing the Google Maps instance
+        map.setCenter(location);
+    
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map,
+            title: bookmark.CusDesc,
+        });
+    
+        try {
+            // Check if `calculateDistance` is a valid function
+            if (typeof calculateDistance === 'function') {
+                var distance = calculateDistance(currentLocation, {
+                    lat: parseFloat(bookmark.Lati),
+                    lng: parseFloat(bookmark.longi),
+                });
+    
+                console.log("Distance:", distance);
+    
+                var infoContent = "<div class='click-window'>";
+                infoContent += "<h2 class='info-title'>" + bookmark.CusDesc + "</h2>";
+                infoContent += "<h2 class='info-heading'>Site ID:</h2>";
+                infoContent += "<p class='info-text'>" + bookmark.CusCode + "</p>";
+                infoContent += "<h2 class='info-heading'>Distance:</h2>";
+                infoContent += "<p class='info-text'>Distance: " + distance.toFixed(2) + " km</p>";
+                infoContent += "<h2 class='info-heading'>Coordinates:</h2>";
+                infoContent += "<p class='info-text'>" + bookmark.Lati + " , " + bookmark.longi + "</p>";
+    
+                // // Check if "Fuel Types" array exists and has elements before accessing properties
+                // if (bookmark["Fuel Types"] && bookmark["Fuel Types"].length > 0) {
+                //     infoContent += "<h2 class='info-heading'>Fuel:</h2>";
+                //     infoContent += "<p class='info-text'>" + Object.keys(bookmark["Fuel Types"][0]).join(", ") + "</p>";
+                // }
+    
+                infoContent += "<div class='my-bookmark' onclick='addToBookmark(\"" + bookmark.CusDesc + '", "' + bookmark.CusAddress + '", ' + bookmark.Lati + ", " + bookmark.longi + ")'><img class='book-img' src='./Vector.png'>Add To Bookmark  </div>";
+                infoContent += "<h2 class='info-heading'>Services</h2>";
+    
+                bookmark.Services.forEach((service) => {
+                    infoContent += "<p class='info-text'>Service: " + service.ServiceDes + "</p>";
+                });
+    
+                infoContent += "<h2 class='info-heading'>Contact:</h2>";
+                infoContent += "<p class='info-text'>" + bookmark.CusAddress + "</p>";
+                infoContent += "</div>";
+    
+                var infoWindow = new google.maps.InfoWindow();
+                infoWindow.setContent(infoContent);
+    
+                // Assuming `map` is a global variable containing the Google Maps instance
+                infoWindow.open(map, marker);
+            } else {
+                console.error("calculateDistance is not a valid function.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    });
+    
   });
 }
 
-function navigateToBookmark(CusDesc, CusAdd, latitude, longitude) {
-  // Replace the following line with your code to navigate to the specified latitude and longitude
-  var location = new google.maps.LatLng(latitude, longitude);
+window.onload = function () {
+  initBookmarkDisplay();
+};
 
-  // Center the map on the specified location
-  map.setCenter(location);
-  console.log("CusDesc:", CusDesc);
-  console.log("CusAdd:", CusAdd);
-  console.log("Latitude:", latitude);
-  console.log("Longitude:", longitude);
-
-  // Optionally, you can open an info window with additional information
-  // var infoWindow = new google.maps.InfoWindow({
-  //   content: "Gas Station Information",
-  //   // You can customize the content based on GasStation object properties
-  // });
-
-  // Open the info window
-  infoWindow.open(map, marker);
-}
-
-// ... (your existing code)
-
-
-
-
-
-
-
-
-  // Initialize bookmark display when the page loads
-  window.onload = function () {
-    initBookmarkDisplay();
-  };
-  // Function to remove a bookmark
 function removeBookmark(index) {
-var bookmarks = getBookmarks();
-
-// Remove the bookmark at the specified index
-bookmarks.splice(index, 1);
-
-// Update the bookmarks in the cookie
-document.cookie = "bookmarks=" + JSON.stringify(bookmarks);
-
-// Reinitialize the bookmark display
-initBookmarkDisplay();
+  var bookmarks = getBookmarks();
+  bookmarks.splice(index, 1);
+  document.cookie = "bookmarks=" + JSON.stringify(bookmarks);
+  initBookmarkDisplay();
 }
