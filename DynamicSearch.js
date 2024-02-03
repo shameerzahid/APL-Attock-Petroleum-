@@ -159,68 +159,72 @@ function displayGasStations(gasStations, containerId) {
 
       const goImg = listItem.querySelector(".map-show");
 
-      goImg.addEventListener('click', function () {
-        console.log("CusDesc:", bookmark.CusDesc);
-        console.log("CusAdd:", bookmark.CusAdd);
-        console.log("Latitude:", bookmark.Lati);
-        console.log("Longitude:", bookmark.longi);
-    
-        // Create a marker at the specified location
-        var location = new google.maps.LatLng(bookmark.Lati, bookmark.longi);
-        
-        // Assuming `map` is a global variable containing the Google Maps instance
+      goImg.addEventListener("click", function () {
+        var location = new google.maps.LatLng(station.Lati, station.longi);
         map.setCenter(location);
-    
+
+        // Create a marker at the specified location
         var marker = new google.maps.Marker({
-            position: location,
-            map: map,
-            title: bookmark.CusDesc,
+          position: location,
+          map: map,
+          title: station.CusDesc, // You can customize the title based on your requirement
         });
-    
-        try {
-            // Check if `calculateDistance` is a valid function
-            if (typeof calculateDistance === 'function') {
-                var distance = calculateDistance(currentLocation, {
-                    lat: parseFloat(bookmark.Lati),
-                    lng: parseFloat(bookmark.longi),
-                });
-    
-                console.log("Distance:", distance);
-    
-                var infoContent = "<div class='click-window'>";
-                infoContent += "<h2 class='info-title'>" + bookmark.CusDesc + "</h2>";
-                infoContent += "<h2 class='info-heading'>Site ID:</h2>";
-                infoContent += "<p class='info-text'>" + bookmark.CusCode + "</p>";
-                infoContent += "<h2 class='info-heading'>Distance:</h2>";
-                infoContent += "<p class='info-text'>Distance: " + distance.toFixed(2) + " km</p>";
-                infoContent += "<h2 class='info-heading'>Coordinates:</h2>";
-                infoContent += "<p class='info-text'>" + bookmark.Lati + " , " + bookmark.longi + "</p>";
-                infoContent += "<h2 class='info-heading'>Fuel:</h2>";
-                infoContent += "<p class='info-text'>" + Object.keys(bookmark["Fuel Types"][0]).join(", ") + "</p>";
-                infoContent += "<div class='my-bookmark' onclick='addToBookmark(\"" + bookmark.CusDesc + '", "' + bookmark.CusAddress + '", ' + bookmark.Lati + ", " + bookmark.longi + ")'><img class='book-img' src='./Vector.png'>Add To Bookmark  </div>";
-                infoContent += "<h2 class='info-heading'>Services</h2>";
-    
-                bookmark.Services.forEach((service) => {
-                    infoContent += "<p class='info-text'>Service: " + service.ServiceDes + "</p>";
-                });
-    
-                infoContent += "<h2 class='info-heading'>Contact:</h2>";
-                infoContent += "<p class='info-text'>" + bookmark.CusAddress + "</p>";
-                infoContent += "</div>";
-    
-                var infoWindow = new google.maps.InfoWindow();
-                infoWindow.setContent(infoContent);
-    
-                // Assuming `map` is a global variable containing the Google Maps instance
-                infoWindow.open(map, marker);
-            } else {
-                console.error("calculateDistance is not a valid function.");
-            }
-        } catch (error) {
-            console.error("Error:", error);
-        }
-    });
-    
+
+        // Calculate distance (assuming calculateDistance and currentLocation are defined)
+        var distance = calculateDistance(currentLocation, {
+          lat: parseFloat(station.Lati),
+          lng: parseFloat(station.longi),
+        });
+
+        // Create the popup content similar to displaySearchedStationInformation
+        var infoContent = "<div class='click-window'>";
+        infoContent += "<h2 class='info-title'>" + station.CusDesc + "</h2>";
+        infoContent += "<h2 class='info-heading'>Site ID:</h2>";
+        infoContent += "<p class='info-text'>" + station.CusCode + "</p>";
+        infoContent += "<h2 class='info-heading'>Distance:</h2>";
+        infoContent +=
+          "<p class='info-text'>Distance: " + distance.toFixed(2) + " km</p>";
+        infoContent += "<h2 class='info-heading'>Coordinates:</h2>";
+        infoContent +=
+          "<p class='info-text'>" +
+          station.Lati +
+          " , " +
+          station.longi +
+          "</p>";
+        infoContent += "<h2 class='info-heading'>Fuel:</h2>";
+        infoContent +=
+          "<p class='info-text'>" +
+          Object.keys(station["Fuel Types"][0]).join(", ") +
+          "</p>";
+        infoContent +=
+          "<div class='my-bookmark' onclick='addToBookmark(\"" +
+          station.CusDesc +
+          '", "' +
+          station.CusAddress +
+          '", ' +
+          station.Lati +
+          ", " +
+          station.longi +
+          ")'><img class='book-img' src='./Vector.png'>Add To Bookmark  </div>";
+        infoContent += "<h2 class='info-heading'>Services</h2>";
+
+        // Assuming gasStation.Services is available
+        station.Services.forEach((service) => {
+          infoContent +=
+            "<p class='info-text'>Service: " + service.ServiceDes + "</p>";
+        });
+
+        infoContent += "<h2 class='info-heading'>Contact:</h2>";
+        infoContent += "<p class='info-text'>" + station.CusAddress + "</p>";
+        infoContent += "</div>";
+
+        var infoWindow = new google.maps.InfoWindow();
+
+        // Set the content of the InfoWindow
+        infoWindow.setContent(infoContent);
+        // Open the InfoWindow
+        infoWindow.open(map, marker);
+      });
     });
   }
 }
