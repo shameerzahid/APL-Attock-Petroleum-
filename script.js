@@ -15,26 +15,7 @@ function myMap() {
         var mapProp = {
           center: currentLocation,
           zoom: 15,
-        //   styles: [
-        //     {
-        //       elementType: "geometry",
-        //       stylers: [{ color: "#ffffff" }],
-        //     },
-        //     {
-        //       elementType: "labels.text.stroke",
-        //       stylers: [{ color: "#ffffff" }],
-        //     },
-        //     {
-        //       elementType: "labels.text.fill",
-        //       stylers: [{ color: "#000000" }],
-        //     },
-        //     {
-        //       featureType: "administrative.locality",
-        //       elementType: "labels.text.fill",
-        //       stylers: [{ color: "#000000" }],
-        //     },
-        //     // Add more style rules as needed
-        //   ],
+       
         };
 
         map = new google.maps.Map(
@@ -493,134 +474,7 @@ function showOnMap(station) {
   // ...
 }
 
-// var map;
-// var infoWindow;
-// var currentLocation;
 
-// function myMap() {
-//     if (navigator.geolocation) {
-//         navigator.geolocation.getCurrentPosition(function (position) {
-//             currentLocation = {
-//                 lat: position.coords.latitude,
-//                 lng: position.coords.longitude
-//             };
-
-//             var mapProp = {
-//                 center: currentLocation,
-//                 zoom: 8,
-//                 styles: [
-//                     // Add your map styles here
-//                 ],
-//             };
-
-//             map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-
-//             var marker = new google.maps.Marker({
-//                 position: currentLocation,
-//                 map: map,
-//                 title: 'You are here!',
-//                 icon: {
-//                     path: google.maps.SymbolPath.CIRCLE,
-//                     fillColor: 'blue',
-//                     fillOpacity: 1,
-//                     strokeWeight: 1,
-//                     scale: 10
-//                 }
-//             });
-
-//             infoWindow = new google.maps.InfoWindow();
-
-//             // Fetch data from the API
-//             fetch('http://115.186.178.11:8080/RaadAPI/Locator/GetWebRetailSites/json?UserID=SUPER&VersionCode=1&priceFetch=true')
-//             .then(response => response.json())
-//             .then(dataWrapper => {
-//                 console.log('Fetched data:', dataWrapper);
-
-//                 // Access the "List" property
-//                 const data = dataWrapper.List;
-
-//                 // Check if data is an array and not empty
-//                 if (Array.isArray(data) && data.length > 0) {
-//                     // Iterate through the fetched data and add markers on the map
-//                     data.forEach(gasStation => {
-//                         // Check if gasStation has expected properties
-//                         if (gasStation && gasStation.Lati && gasStation.longi && gasStation.CusDesc && gasStation.CusAddress && gasStation.City && gasStation.HSDPrice) {
-//                             addMarker(gasStation);
-//                         } else {
-//                             console.error('Invalid gas station data:', gasStation);
-//                         }
-//                     });
-//                 } else {
-//                     console.error('Empty or invalid data array:', data);
-//                 }
-//             })
-//             .catch(error => {
-//                 console.error('Error fetching data from the API:', error);
-//             });
-
-//         }, function () {
-//             handleLocationError(true, infoWindow, map.getCenter());
-//         });
-//     } else {
-//         handleLocationError(false, infoWindow, map.getCenter());
-//     }
-// }
-
-// function addMarker(gasStation) {
-//     console.log("Add marker")
-//     var gasStationLocation = {
-//         lat: parseFloat(gasStation.Lati),
-//         lng: parseFloat(gasStation.longi)
-//     };
-
-//     var gasStationMarker = new google.maps.Marker({
-//         position: gasStationLocation,
-//         map: map,
-//         title: gasStation.CusDesc,
-//         icon: {
-//             url: './loginimage.webp',
-//             scaledSize: new google.maps.Size(30, 30)
-//         }
-//     });
-
-//     gasStationMarker.addListener('click', function () {
-//         displayStationInfo(gasStationMarker, gasStation);
-//     });
-// }
-
-// function displayStationInfo(marker, gasStation) {
-//     var gasStationLocation = {
-//         lat: parseFloat(gasStation.Lati),
-//         lng: parseFloat(gasStation.longi)
-//     };
-
-//     var distance = calculateDistance(currentLocation, gasStationLocation);
-//     var infoContent = "<div style='max-width: 1000px;'>";
-//     infoContent = "<h2 class='info-title'>" + gasStation.CusDesc + "</h2>";
-//     infoContent += "<p class='info-text'>Address: " + gasStation.CusAddress + "</p>";
-//     infoContent += "<p class='info-text'>City: " + gasStation.City + "</p>";
-//     infoContent += "<p class='info-text'>HSD Price: " + gasStation.HSDPrice + "</p>";
-//     infoContent += "<p class='info-text'>Distance: " + distance.toFixed(2) + " km</p>";
-//     infoContent += "</div>";
-//     infoWindow.setContent(infoContent);
-//     infoWindow.open(map, marker);
-// }
-
-// function calculateDistance(point1, point2) {
-//     var R = 6371;
-//     var dLat = (point2.lat - point1.lat) * Math.PI / 180;
-//     var dLon = (point2.lng - point1.lng) * Math.PI / 180;
-//     var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-//         Math.cos(point1.lat * Math.PI / 180) * Math.cos(point2.lat * Math.PI / 180) *
-//         Math.sin(dLon / 2) * Math.sin(dLon / 2);
-//     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-//     var distance = R * c;
-//     return distance;
-// }
-
-// function handleLocationError(browserHasGeolocation, infoWindow, currentLocation) {
-//     // Handle errors here
-// }
 // Initialize an empty array to store bookmarks
 var bookmarks = [];
 function addToBookmark(CusDesc, CusAdd, Lati, longi) {
@@ -648,10 +502,15 @@ function addToBookmark(CusDesc, CusAdd, Lati, longi) {
   initBookmarkDisplay();
   // You can perform additional actions as needed
 
-  // Change the opacity of the bookmark button to indicate that it has been clicked
-  var bookmarkButton = document.querySelector(".my-bookmark");
+  // Change the SVG content
+  var bookmarkButton = document.querySelector(".my-bookmark svg");
   if (bookmarkButton) {
-      bookmarkButton.style.opacity = 0.5; // Set the desired opacity value
+    bookmarkButton.innerHTML = `
+      <svg width="12px" height="13px" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 13.4673L6.24548 17.6665C5.63355 18.3509 4.5 17.9181 4.5 17V3C4.5 2.44772 4.94772 2 5.5 2H14.5C15.0523 2 15.5 2.44772 15.5 3V17C15.5 17.9181 14.3665 18.3509 13.7545 17.6665L10 13.4673Z" fill="#000000"/>
+      </svg>
+    `;
   }
 }
+
 
