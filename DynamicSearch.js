@@ -75,6 +75,15 @@ function DynamicsearchGasStations() {
   var userInput = document
     .getElementById("DynamicsearchInput")
     .value.toLowerCase();
+
+  // Check if userInput is empty
+  if (userInput === '') {
+    // Clear results container
+    clearResultsContainer("Dynamicsearch-results");
+    logSelectedFilters([], getSelectedServices());
+    return;
+  }
+
   var selectedServices = getSelectedServices();
 
   var serviceCheckboxesChecked = selectedServices.length > 0;
@@ -99,6 +108,11 @@ function DynamicsearchGasStations() {
 
   displayGasStations(filteredGasStations, "Dynamicsearch-results");
   logSelectedFilters([], selectedServices); // Since fuel types are not used, passing an empty array for fuel types
+}
+
+function clearResultsContainer(containerId) {
+  var resultsContainer = document.getElementById(containerId);
+  resultsContainer.innerHTML = '';
 }
 
 // Function to get the selected fuel types

@@ -1,38 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/inter@3.15.0/dist/inter.css"
-    />
-    <link rel="stylesheet" type="text/css" href="./GasStation.css" />
-    <link rel="stylesheet" type="text/css" href="./Panel.css" />
-    <link rel="stylesheet" type="text/css" href="./styleDiv.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1dNzq7vLDxQmkioCZB_1ZCqs7YF5dN00&libraries=places&callback=initMap"
-      async
-      defer
-    ></script>
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initMap" async defer></script> -->
-    <title>APL Station Locator</title>
-  </head>
-  <style>
-    .mainbody {
-      height: 90vh;
-      background-color: transparent;
-      width: 30%;
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+  <!-- Add the following line to include the favicon -->
+  <link rel="icon" href="Images/favicon/favicon.ico" type="image/x-icon">
+  
+  <!-- Optionally, you can include different sizes for better compatibility -->
+  <link rel="apple-touch-icon" sizes="180x180" href="Images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="Images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="Images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="Images/favicon/site.webmanifest">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inter@3.15.0/dist/inter.css" />
+  <link rel="stylesheet" type="text/css" href="./GasStation.css" />
+  <link rel="stylesheet" type="text/css" href="./Panel.css" />
+  <link rel="stylesheet" type="text/css" href="./styleDiv.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1dNzq7vLDxQmkioCZB_1ZCqs7YF5dN00&libraries=places&callback=initMap"
+    async defer></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initMap" async defer></script> -->
+  <title>APL Station Locator</title>
+</head>
+<style>
+  .mainbody {
+    height: 90vh;
+    background-color: transparent;
+    width: 20%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 
     #bookmarkContainer {
       max-width: 600px;
@@ -72,7 +74,10 @@
     <div id="map-container" >
       
       <div id="googleMap" class="maps"></div>
-    
+      <div class="logo">
+        ATTOCK
+        <p class="logo-1">FUEL LOCATOR</p>
+      </div>
       <div id="map-panel" class="mainbody tablecontainer">
         <div class="locator">
           <div class="header">
@@ -135,344 +140,208 @@
                 </div>
               </div>
 
-              <!--Dynamic search -->
-              <li onclick="toggleDynamicSearch()">
-                <p class="center" style="cursor: pointer">
-                  <span class="li-images"
-                    ><img src="./Images/filter.svg" alt="location"
-                  /></span>
-                  Dynamic Search
+            <!--Dynamic search -->
+            <li onclick="toggleDynamicSearch()">
+              <p class="center" style="cursor: pointer">
+                <span class="li-images"><img src="./Images/filter.svg" alt="location" /></span>
+                Dynamic Search
+              </p>
+              <p>
+                <img id="show-DynamicSearch" src="./Images/Down.svg" alt="arrow" />
+              </p>
+            </li>
+            <!--Dynamic search div on click  -->
+            <div id="open-DynamicSearch" class="Dynamic-search">
+              <div class="search-here">
+                <p class="Dyn-Search-input">
+                  <img class="magnify" src="./Images/magnify.svg" alt="magnify" />
+                  <input class="input" type="text" placeholder="Search loction" id="DynamicsearchInput"
+                    oninput="DynamicsearchGasStations()" />
                 </p>
-                <p>
-                  <img
-                    id="show-DynamicSearch"
-                    src="./Images/Down.svg"
-                    alt="arrow"
-                  />
-                </p>
-              </li>
-              <!--Dynamic search div on click  -->
-              <div id="open-DynamicSearch" class="Dynamic-search">
-                <div class="search-here">
-                  <p class="Dyn-Search-input">
-                    <img
-                      class="magnify"
-                      src="./Images/magnify.svg"
-                      alt="magnify"
-                    />
-                    <input
-                      class="input"
-                      type="text"
-                      placeholder="Abbottabad"
-                      id="DynamicsearchInput"
-                      oninput="DynamicsearchGasStations()"
-                    />
-                  </p>
-                  <div class="Down-mark" onclick="togglefilter()">
-                    <img
-                      id="up"
-                      class="mark-img white-down-img"
-                      src="./Images/Down-white.svg"
-                      alt=""
-                    />
-                  </div>
+                <div class="Down-mark" onclick="togglefilter()">
+                  <img id="up" class="mark-img white-down-img" src="./Images/Down-white.svg" alt="" />
                 </div>
-                <div id="filter" class="select-location tablecontainer">
-                  <p class="heading">Fuel</p>
-                  <div class="flex">
-                    <input
-                      id="myCheckbox"
-                      class="checkbox custom fuel-checkbox"
-                      type="checkbox"
-                      id="Supreme"
-                    />
-                    <label for="Supreme">HSD</label>
-                  </div>
-                  <div class="flex">
-                    <input
-                      id="myCheckbox"
-                      class="checkbox custom fuel-checkbox"
-                      type="checkbox"
-                      id="Diesel"
-                    />
-                    <label for="Diesel">PMG</label>
-                  </div>
-                  <div class="flex">
-                    <input
-                      id="myCheckbox"
-                      class="checkbox custom fuel-checkbox"
-                      type="checkbox"
-                      id="HOBC97"
-                    />
-                    <label for="HOBC97">XTRON</label>
-                  </div>
-                  <div class="flex">
-                    <input
-                      id="myCheckbox"
-                      class="checkbox custom fuel-checkbox"
-                      type="checkbox"
-                      id="CNG"
-                    />
-                    <label for="CNG">CNG</label>
-                  </div>
-                  <p class="heading">Services</p>
-                  <div class="flex">
-                    <input
-                      id="myCheckbox"
-                      class="checkbox custom Services-checkbox"
-                      type="checkbox"
-                      id="Lubricants"
-                    />
-                    <label for="Lubricants">Lubricants</label>
-                  </div>
-                  <div class="flex">
-                    <input
-                      id="myCheckbox"
-                      class="checkbox custom Services-checkbox"
-                      type="checkbox"
-                      id="LubeExperts"
-                    />
-                    <label for="LubeExperts">Lube Expert</label>
-                  </div>
-                  <div class="flex">
-                    <input
-                      id="myCheckbox"
-                      class="checkbox custom Services-checkbox"
-                      type="checkbox"
-                      id="TuckShop"
-                    />
-                    <label for="TuckShop">Tuck Shop</label>
-                  </div>
-                  <div class="flex">
-                    <input
-                      id="myCheckbox"
-                      class="checkbox custom Services-checkbox"
-                      type="checkbox"
-                      id="TyreCare"
-                    />
-                    <label for="TyreCare">Tyre Shop</label>
-                  </div>
-                  <div class="flex">
-                    <input
-                      id="myCheckbox"
-                      class="checkbox custom Services-checkbox"
-                      type="checkbox"
-                      id="SpeedWash"
-                    />
-                    <label for="SpeedWash">Speed Wash</label>
-                  </div>
-                  <div class="flex">
-                    <input
-                      id="myCheckbox"
-                      class="checkbox custom Services-checkbox"
-                      type="checkbox"
-                      id="ATM"
-                    />
-                    <label for="ATM">ATM</label>
-                  </div>
-                  <div class="flex">
-                    <input
-                      id="myCheckbox"
-                      class="checkbox custom Services-checkbox"
-                      type="checkbox"
-                      id="CreditCards"
-                    />
-                    <label for="CreditCards">Credit Cards</label>
-                  </div>
-                  <div class="flex">
-                    <input
-                      id="myCheckbox"
-                      class="checkbox custom Services-checkbox"
-                      type="checkbox"
-                      id="AttockSmartFuelCard"
-                    />
-                    <label for="AttockSmartFuelCard"
-                      >Attock Smart Fuel Card</label
-                    >
-                  </div>
+              </div>
+              <div id="filter" class="select-location tablecontainer">
+                <p class="heading">Fuel</p>
+                <div class="flex">
+                  <input id="myCheckbox" class="checkbox custom fuel-checkbox" type="checkbox" id="Supreme" />
+                  <label for="Supreme">HSD</label>
                 </div>
-                <div class="button">
-                  <button class="btn" onclick="logCheckedCheckboxes()">
-                    Search
-                  </button>
+                <div class="flex">
+                  <input id="myCheckbox" class="checkbox custom fuel-checkbox" type="checkbox" id="Diesel" />
+                  <label for="Diesel">PMG</label>
                 </div>
-                <p class="results">Search Results</p>
+                <div class="flex">
+                  <input id="myCheckbox" class="checkbox custom fuel-checkbox" type="checkbox" id="HOBC97" />
+                  <label for="HOBC97">XTRON</label>
+                </div>
+                <div class="flex">
+                  <input id="myCheckbox" class="checkbox custom fuel-checkbox" type="checkbox" id="CNG" />
+                  <label for="CNG">CNG</label>
+                </div>
+                <p class="heading">Services</p>
+                <div class="flex">
+                  <input id="myCheckbox" class="checkbox custom Services-checkbox" type="checkbox" id="Lubricants" />
+                  <label for="Lubricants">Lubricants</label>
+                </div>
+                <div class="flex">
+                  <input id="myCheckbox" class="checkbox custom Services-checkbox" type="checkbox" id="LubeExperts" />
+                  <label for="LubeExperts">Lube Expert</label>
+                </div>
+                <div class="flex">
+                  <input id="myCheckbox" class="checkbox custom Services-checkbox" type="checkbox" id="TuckShop" />
+                  <label for="TuckShop">Tuck Shop</label>
+                </div>
+                <div class="flex">
+                  <input id="myCheckbox" class="checkbox custom Services-checkbox" type="checkbox" id="TyreCare" />
+                  <label for="TyreCare">Tyre Shop</label>
+                </div>
+                <div class="flex">
+                  <input id="myCheckbox" class="checkbox custom Services-checkbox" type="checkbox" id="SpeedWash" />
+                  <label for="SpeedWash">Speed Wash</label>
+                </div>
+                <div class="flex">
+                  <input id="myCheckbox" class="checkbox custom Services-checkbox" type="checkbox" id="ATM" />
+                  <label for="ATM">ATM</label>
+                </div>
+                <div class="flex">
+                  <input id="myCheckbox" class="checkbox custom Services-checkbox" type="checkbox" id="CreditCards" />
+                  <label for="CreditCards">Credit Cards</label>
+                </div>
+                <div class="flex">
+                  <input id="myCheckbox" class="checkbox custom Services-checkbox" type="checkbox"
+                    id="AttockSmartFuelCard" />
+                  <label for="AttockSmartFuelCard">Attock Smart Fuel Card</label>
+                </div>
+              </div>
+              <div class="button">
+                <button class="btn" onclick="logCheckedCheckboxes()">
+                  Search
+                </button>
+              </div>
+              <p class="results">Search Results</p>
 
-                <div class="listmain" id="Dynamicsearch-results">
-                  <div class="list">
-                    <p class="number">1</p>
-                    <div class="searched-data2">
-                      <p class="p1">Askari 9 Filling Station</p>
-                    </div>
-                    <div>
-                      <img src="./Images/go.svg" alt="" />
-                    </div>
-                  </div>
-                </div>
+              <div class="listmain" id="Dynamicsearch-results">
+              </div>
 
-                <!-- <div class=" nothing-found">
+              <!-- <div class=" nothing-found">
                 <img class="info" src="./Images/info.svg" alt="">
                 <div class="center info-text"><p>Oops! It seems like there are no APL fuel stations near your entered location. Please try another.</p></div>
 
             </div> -->
-              </div>
+            </div>
 
-              <!--Route search -->
-              <li onclick="toggleRoutePlanning()">
-                <p class="center" style="cursor: pointer">
-                  <span class="li-images"
-                    ><img src="./Images/Route.svg" alt="location"
-                  /></span>
-                  Route Planner
+            <!--Route search -->
+            <li onclick="toggleRoutePlanning()">
+              <p class="center" style="cursor: pointer">
+                <span class="li-images"><img src="./Images/Route.svg" alt="location" /></span>
+                Route Planner
+              </p>
+              <p>
+                <img id="show-RoutePlanner" src="./Images/Down.svg" alt="arrow" />
+              </p>
+            </li>
+            <!-- Route div on click  -->
+            <div id="open-RoutePlanner" class="route-planner">
+              <div id="Route-Container" class="green">
+                <img class="line" src="./Images/line.svg" alt="line" />
+                <p class="center">
+                  <img src="/Images/magnify.svg" alt="magnify" />
+                  <input class="input input-route Routesearch-input" type="text" placeholder="Enter a Location"
+                    id="RouteInputFrom" oninput="generateRouteOnInput()" />
                 </p>
-                <p>
-                  <img
-                    id="show-RoutePlanner"
-                    src="./Images/Down.svg"
-                    alt="arrow"
-                  />
+                <p class="center isl">
+                  <img src="./Images/loc.svg" alt="route" />
+                  <input class="input input-route Routesearch-input" type="text" placeholder="Enter a Location"
+                    id="RouteInputTo" oninput="generateRouteOnInput()" />
                 </p>
-              </li>
-              <!-- Route div on click  -->
-              <div id="open-RoutePlanner" class="route-planner">
-                <div id="Route-Container" class="green">
-                  <img class="line" src="./Images/line.svg" alt="line" />
-                  <p class="center">
-                    <img src="/Images/magnify.svg" alt="magnify" />
-                    <input
-                      class="input input-route Routesearch-input"
-                      type="text"
-                      placeholder="Abbottabad"
-                      id="RouteInputFrom"
-                      oninput="generateRouteOnInput()"
-                    />
-                  </p>
-                  <p class="center isl">
-                    <img src="./Images/loc.svg" alt="route" />
-                    <input
-                      class="input input-route Routesearch-input"
-                      type="text"
-                      placeholder="Islamabad"
-                      id="RouteInputTo"
-                      oninput="generateRouteOnInput()"
-                    />
-                  </p>
-                </div>
-                <div class="listmain" id="Route-results">
-                  <div class="list list-route">
-                    <p class="number">1</p>
-                    <div>
-                      <p class="p1 margin2">Askari 9 Filling Station</p>
-                      <p class="p2 margin2">
-                        On Wasa tank, Dhoke Hassu Rawalpindi
-                      </p>
-                    </div>
-                    <div>
-                      <img src="./Images/go.svg" alt="" />
-                    </div>
-                  </div>
-                </div>
               </div>
-
-              <!--Keyword search -->
-              <li onclick="toggleKeywordSearch()">
-                <p class="center" style="cursor: pointer">
-                  <span class="li-images"
-                    ><img src="./Images/Keyword.svg" alt="location"
-                  /></span>
-                  Keyword Search
-                </p>
-                <p>
-                  <img
-                    id="show-keywordSearch"
-                    src="./Images/Down.svg"
-                    alt="arrow"
-                  />
-                </p>
-              </li>
-              <!-- Keyword div on click  -->
-              <div id="open-keywordSearch" class="keyword-search">
-                <div class="green">
-                  <p class="center">
-                    <img class="mag" src="/Images/magnify.svg" alt="magnify" />
-                    <input
-                      class="input input-route"
-                      type="text"
-                      placeholder="Askari"
-                      id="keywordInput"
-                      oninput="searchByKeyword()"
-                    />
-                  </p>
-                </div>
-                <div class="listmain" id="keyword-results">
-                  <div class="list">
-                    <p class="number">1</p>
-                    <div>
-                      <p class="p1 margin2">Askari 9 Filling Station</p>
-                      <p class="p2 margin2">
-                        On Wasa tank, Dhoke Hassu Rawalpindi
-                      </p>
-                    </div>
-                    <div>
-                      <img src="./Images/go.svg" alt="" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!--Bookmark search -->
-              <li onclick="togglebookmark()">
-                <p class="center" style="cursor: pointer">
-                  <span class="li-images"
-                    ><img
-                      class="bookmark"
-                      src="./Images/Bookemark.svg"
-                      alt="location"
-                  /></span>
-                  My Bookmarks
-                </p>
-                <p>
-                  <img id="show-Bookmark" src="./Images/Down.svg" alt="arrow" />
-                </p>
-              </li>
-              <!-- Route div on click  -->
-              <div id="open-Bookmark" class="Bookmark">
-                <div class="list">
+              <div class="listmain" id="Route-results">
+                <!-- <div class="list list-route">
                   <p class="number">1</p>
                   <div>
-                    <p class="p1 margin">Askari 9 Filling Station</p>
-                    <p class="p2 margin">
+                    <p class="p1 margin2">Askari 9 Filling Station</p>
+                    <p class="p2 margin2">
                       On Wasa tank, Dhoke Hassu Rawalpindi
                     </p>
                   </div>
                   <div>
-                    <img src="./Images/markit.svg" alt="mark" />
-                    <img src="./Images/go.svg" alt="go" />
+                    <img src="./Images/go.svg" alt="" />
                   </div>
+                </div> -->
+              </div>
+            </div>
+
+            <!--Keyword search -->
+            <li onclick="toggleKeywordSearch()">
+              <p class="center" style="cursor: pointer">
+                <span class="li-images"><img src="./Images/Keyword.svg" alt="location" /></span>
+                Keyword Search
+              </p>
+              <p>
+                <img id="show-keywordSearch" src="./Images/Down.svg" alt="arrow" />
+              </p>
+            </li>
+            <!-- Keyword div on click  -->
+            <div id="open-keywordSearch" class="keyword-search">
+              <div class="green">
+                <p class="center">
+                  <img class="mag" src="/Images/magnify.svg" alt="magnify" />
+                  <input class="input input-route" type="text" placeholder="Enter Keyword" id="keywordInput"
+                    oninput="searchByKeyword()" />
+                </p>
+              </div>
+              <div class="listmain" id="keyword-results">
+              </div>
+            </div>
+
+            <!--Bookmark search -->
+            <li onclick="togglebookmark()">
+              <p class="center" style="cursor: pointer">
+                <span class="li-images"><img class="bookmark" src="./Images/Bookemark.svg" alt="location" /></span>
+                My Bookmarks
+              </p>
+              <p>
+                <img id="show-Bookmark" src="./Images/Down.svg" alt="arrow" />
+              </p>
+            </li>
+            <!-- Route div on click  -->
+            <div id="open-Bookmark" class="Bookmark">
+              <div class="list">
+                <p class="number">1</p>
+                <div>
+                  <p class="p1 margin">Askari 9 Filling Station</p>
+                  <p class="p2 margin">
+                    On Wasa tank, Dhoke Hassu Rawalpindi
+                  </p>
+                </div>
+                <div>
+                  <img src="./Images/markit.svg" alt="mark" />
+                  <img src="./Images/go.svg" alt="go" />
                 </div>
               </div>
-            </ul>
-          </div>
+            </div>
+          </ul>
         </div>
       </div>
     </div>
-    <!-- Add this function to your script -->
-    <script></script>
+  </div>
+  <!-- Add this function to your script -->
+  <script></script>
 
-    <script src="./bookmark.js"></script>
-    <script src="./DynamicSearch.js"></script>
-    <script src="./script.js"></script>
-    <script src="./Rendering.js"></script>
-    <script src="./GasStations.js"></script>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1dNzq7vLDxQmkioCZB_1ZCqs7YF5dN00&callback=myMap"
-      async
-      defer
-    ></script>
-    <script src="./citySearch.js"></script>
-    <script src="./citySearch.js"></script>
-    <script src="./KeywordSearch.js"></script>
-    <script src="Search.js"></script>
-    <script src="Route.js"></script>
-  </body>
+  <script src="./bookmark.js"></script>
+  <script src="./DynamicSearch.js"></script>
+  <script src="./script.js"></script>
+  <script src="./Rendering.js"></script>
+  <script src="./GasStations.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1dNzq7vLDxQmkioCZB_1ZCqs7YF5dN00&callback=myMap" async
+    defer></script>
+  <script src="./citySearch.js"></script>
+  <script src="./citySearch.js"></script>
+  <script src="./KeywordSearch.js"></script>
+  <script src="Search.js"></script>
+  <script src="Route.js"></script>
+</body>
+
 </html>

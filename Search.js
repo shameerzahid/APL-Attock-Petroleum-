@@ -1,5 +1,12 @@
 function searchGasStations() {
   var searchInput = document.getElementById("searchInput").value.toLowerCase();
+  // Check if searchInput is empty
+  if (searchInput === '') {
+    // Clear the search results and exit the function
+    clearSearchResults();
+    return;
+  }
+
   var searchResults = [];
 
   // Loop through GasStations array and check if the city matches the search input
@@ -15,6 +22,14 @@ function searchGasStations() {
   // Display the search results in the div
   displaySearchResults(searchResults);
 }
+
+function clearSearchResults() {
+  // Assuming you have a function to clear the search results, implement it here
+  // For example, if the search results are displayed in a div with id "search-results":
+  var searchResultsContainer = document.getElementById("search-results");
+  searchResultsContainer.innerHTML = '';
+}
+
 function displaySearchResults(results) {
   var searchResultsDiv = document.getElementById("search-results");
   searchResultsDiv.innerHTML = ""; // Clear previous results
@@ -149,33 +164,33 @@ function navigateToLocation(latitude, longitude, result) {
 var bookmarks = [];
 
 function addToBookmark(CusDesc, CusAdd, Lati, longi) {
-    // Retrieve existing bookmarks from the cookie
-    var existingBookmarks = getBookmarks();
+  // Retrieve existing bookmarks from the cookie
+  var existingBookmarks = getBookmarks();
 
-    // Create an object with the bookmark information
-    var bookmarkInfo = {
-        CusDesc: CusDesc,
-        CusAdd: CusAdd,
-        Lati: Lati,
-        longi: longi
-    };
+  // Create an object with the bookmark information
+  var bookmarkInfo = {
+    CusDesc: CusDesc,
+    CusAdd: CusAdd,
+    Lati: Lati,
+    longi: longi
+  };
 
-    // Add the new bookmark to the existing bookmarks
-    existingBookmarks.push(bookmarkInfo);
+  // Add the new bookmark to the existing bookmarks
+  existingBookmarks.push(bookmarkInfo);
 
-    // Convert the array to a JSON string
-    var bookmarksJSON = JSON.stringify(existingBookmarks);
+  // Convert the array to a JSON string
+  var bookmarksJSON = JSON.stringify(existingBookmarks);
 
-    // Set the combined bookmarks in the cookie
-    document.cookie = "bookmarks=" + encodeURIComponent(bookmarksJSON) + "; path=/";
+  // Set the combined bookmarks in the cookie
+  document.cookie = "bookmarks=" + encodeURIComponent(bookmarksJSON) + "; path=/";
 
-    // You can also set an expiration time if needed, e.g., expires=Sun, 01 Jan 2023 00:00:00 GMT
-    initBookmarkDisplay();
-    // You can perform additional actions as needed
+  // You can also set an expiration time if needed, e.g., expires=Sun, 01 Jan 2023 00:00:00 GMT
+  initBookmarkDisplay();
+  // You can perform additional actions as needed
 
-    // Change the opacity of the bookmark button to indicate that it has been clicked
-    var bookmarkButton = document.querySelector(".my-bookmark");
-    if (bookmarkButton) {
-        bookmarkButton.style.opacity = 0.5; // Set the desired opacity value
-    }
+  // Change the opacity of the bookmark button to indicate that it has been clicked
+  var bookmarkButton = document.querySelector(".my-bookmark");
+  if (bookmarkButton) {
+    bookmarkButton.style.opacity = 0.5; // Set the desired opacity value
+  }
 }

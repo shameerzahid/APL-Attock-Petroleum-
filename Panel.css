@@ -3,28 +3,33 @@
     height: 100vh;
     /* z-index: 2; Set map height to fill the viewport */
 }
-body{
+
+body {
     font-family: "Inter", sans-serif;
 }
+
 #map-container {
-    position: relative; /* Make the container relative for absolute positioning */
+    position: relative;
+    /* Make the container relative for absolute positioning */
 }
 
 #map-panel {
     position: absolute;
-    top:2px;
-    right: 10px;
+    top: 0;
+    right: 0;
     /* z-index: 2; */
     background-color: transparent;
     padding-bottom: 2px;
-    border-radius: 5px;
-   
+    /* border-radius: 5px; */
+
     display: flex;
-    flex-direction: column; /* Align buttons in a column */
+    flex-direction: column;
+    /* Align buttons in a column */
 }
-.my-bookmark{
+
+.my-bookmark {
     font-size: 15px;
-cursor: pointer;
+    cursor: pointer;
     font-weight: 500;
     margin-top: 10px;
     display: flex;
@@ -32,69 +37,82 @@ cursor: pointer;
     align-items: center;
 
 }
-.book-img{
-    width: 15px ;
+
+.book-img {
+    width: 15px;
     margin-right: 5px;
     fill: black;
     /* margin-top: 10px; */
 }
+
 .buttons {
     display: block;
     margin-bottom: 5px;
     cursor: pointer;
     display: flex;
-    align-items: center ;
+    align-items: center;
     padding: 5px 20px;
     cursor: pointer;
     width: 250px;
     height: 50px;
-    text-align: left; /* Left-align the text */
+    text-align: left;
+    /* Left-align the text */
     background-color: #99C847;
     color: white;
     border: 1px solid #1a741c;
     font-size: 15px;
     border-radius: 5px;
 }
-.buttons p{
+
+.buttons p {
     padding-left: 10px;
 }
 
 #searchDiv {
     display: none;
     position: absolute;
-    top: 110px; /* Adjust the top position to place it right below the buttons */
+    top: 110px;
+    /* Adjust the top position to place it right below the buttons */
     right: 10px;
-    width: 250px; /* Same width as buttons */
+    width: 250px;
+    /* Same width as buttons */
     animation-duration: 0.5s;
-    background-color: white; /* Optional: Add a background color */
+    background-color: white;
+    /* Optional: Add a background color */
     padding: 10px;
     box-sizing: border-box;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 999;
 }
-#locator{
+
+#locator {
     position: absolute;
 }
-#search-suggestion-container{
+
+#search-suggestion-container {
     display: none;
     /* width: 250px; */
     height: 200px;
-    overflow-y: auto  ;
-    overflow-x: hidden  ;
+    overflow-y: auto;
+    overflow-x: hidden;
     margin-top: 5px;
     border: 1px solid gray;
     margin: 10px 0;
 }
+
 #DynamicsearchDiv {
     display: none;
     position: absolute;
-    top: 165px; /* Adjust the top position to place it right below the buttons */
+    top: 165px;
+    /* Adjust the top position to place it right below the buttons */
     right: 10px;
-    width: 250px; /* Same width as buttons */
+    width: 250px;
+    /* Same width as buttons */
     height: 420px;
     animation-duration: 0.5s;
-    background-color: white; /* Optional: Add a background color */
+    background-color: white;
+    /* Optional: Add a background color */
     padding: 10px;
     box-sizing: border-box;
     border-radius: 5px;
@@ -105,59 +123,72 @@ cursor: pointer;
 #RoutesearchDiv {
     display: none;
     position: absolute;
-    top: 220px; /* Adjust the top position to place it right below the buttons */
+    top: 220px;
+    /* Adjust the top position to place it right below the buttons */
     right: 10px;
-    width: 250px; /* Same width as buttons */
+    width: 250px;
+    /* Same width as buttons */
     /* height: 450px; */
     animation-duration: 0.5s;
-    background-color: white; /* Optional: Add a background color */
+    background-color: white;
+    /* Optional: Add a background color */
     padding: 10px;
     box-sizing: border-box;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 999;
 }
+
 #KeywordsearchDiv {
     display: none;
     position: absolute;
-    top: 275px; /* Adjust the top position to place it right below the buttons */
+    top: 275px;
+    /* Adjust the top position to place it right below the buttons */
     right: 10px;
-    width: 250px; /* Same width as buttons */
-   
+    width: 250px;
+    /* Same width as buttons */
+
     overflow: auto;
     animation-duration: 0.5s;
-    background-color: white; /* Optional: Add a background color */
+    background-color: white;
+    /* Optional: Add a background color */
     padding: 10px;
     box-sizing: border-box;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 999;
 }
-.search-input
-{
+
+.search-input {
     height: 25px;
 }
-.search-btn
-{
+
+.search-btn {
     cursor: pointer;
     margin-top: 10px;
     border-radius: 14px;
-    background-color: #bed62f;
-    border: 2px solid #bed62f;
+    background-color: #BED62F;
+    border: 2px solid #BED62F;
     width: 90px;
     height: 30px;
     color: white;
 }
+
 .gm-style-mtc-bbw .gm-style-mtc:last-of-type>button {
     background: #BED62F !important;
+    color: black !important;
 }
-.gm-style-mtc-bbw {top: 80px !important;}
-.Dynamicsearch-btn
-{
+
+.gm-style-mtc-bbw {
+    top: 80px !important;
+    left: 20px !important;
+}
+
+.Dynamicsearch-btn {
     margin: 10px 0;
     border-radius: 14px;
-    background-color: #bed62f;
-    border: 2px solid #bed62f;
+    background-color: #BED62F;
+    border: 2px solid #BED62F;
     width: 90px;
     height: 30px;
     color: white;
@@ -192,69 +223,77 @@ body {
     font-family: "Inter", sans-serif;
     position: relative;
     overflow-x: hidden;
-  }
-  .select-location {
+}
+
+.select-location {
     border: 1px solid gray;
     height: 400px;
     overflow: auto;
-  }
-  .heading {
+}
+
+.heading {
     font-weight: 600;
     font-size: 13px;
     padding: 4px 0;
     margin: 0;
-  }
-  /* .input {
+}
+
+/* .input {
     margin: 10px 0px;
     padding: 5px 10px;
     border-radius: 5px;
     border: 1px solid gray;
     outline: none;
   } */
-  .flex {
+.flex {
     display: flex;
     align-items: center;
     margin: 0;
     padding: 0;
-  }
-  p {
+}
+
+p {
     margin: 0;
     padding: 0;
     font-size: 12px;
-  }
-  .checkbox {
+}
+
+.checkbox {
     margin-top: 5px;
-  }
-  .keyword {
+}
+
+.keyword {
     padding: 10px;
     border: 1px solid gray;
     border-radius: 5px;
-  }
-  .Route {
-    padding: 10px ;
+}
+
+.Route {
+    padding: 10px;
     border: 1px solid gray;
     border-radius: 5px;
-  }
-  .btns{
-      display: flex;
-       justify-content: space-between;
-       padding: 0 10px ;
-       margin-top: 5px;
-  }
-  /* .number{
+}
+
+.btns {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    margin-top: 5px;
+}
+
+/* .number{
       padding: 5px 10px;
       background-color: #99C847;
       color: white;
   } */
-  .field{
-      display: flex;
-      justify-content: space-between;
-      padding-bottom: 5px;
-      align-items: center;
-  }
-  .cancel-icon{
-      margin-top: 2px;
-      cursor: pointer;
-  }
- 
-  
+.field {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5px;
+    align-items: center;
+}
+
+.cancel-icon {
+    margin-top: 2px;
+    cursor: pointer;
+}

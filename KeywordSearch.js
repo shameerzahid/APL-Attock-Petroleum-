@@ -5,6 +5,14 @@ function searchByKeyword() {
 
   let resultCount = 0;
 
+  // Check if keywordInput is empty
+  if (keywordInput === '') {
+    // Clear previous results container
+    const keywordResultsContainer = document.getElementById('keyword-results');
+    keywordResultsContainer.innerHTML = '';
+    return; // Exit the function if the keyword is empty
+  }
+
   for (const station of GasStations) {
     const cusDesc = station.CusDesc.toLowerCase();
     if (cusDesc.includes(keywordInput)) {
@@ -115,33 +123,33 @@ function showOnMap(latitude, longitude, station) {
 var bookmarks = [];
 
 function addToBookmark(CusDesc, CusAdd, Lati, longi) {
-    // Retrieve existing bookmarks from the cookie
-    var existingBookmarks = getBookmarks();
+  // Retrieve existing bookmarks from the cookie
+  var existingBookmarks = getBookmarks();
 
-    // Create an object with the bookmark information
-    var bookmarkInfo = {
-        CusDesc: CusDesc,
-        CusAdd: CusAdd,
-        Lati: Lati,
-        longi: longi
-    };
+  // Create an object with the bookmark information
+  var bookmarkInfo = {
+    CusDesc: CusDesc,
+    CusAdd: CusAdd,
+    Lati: Lati,
+    longi: longi
+  };
 
-    // Add the new bookmark to the existing bookmarks
-    existingBookmarks.push(bookmarkInfo);
+  // Add the new bookmark to the existing bookmarks
+  existingBookmarks.push(bookmarkInfo);
 
-    // Convert the array to a JSON string
-    var bookmarksJSON = JSON.stringify(existingBookmarks);
+  // Convert the array to a JSON string
+  var bookmarksJSON = JSON.stringify(existingBookmarks);
 
-    // Set the combined bookmarks in the cookie
-    document.cookie = "bookmarks=" + encodeURIComponent(bookmarksJSON) + "; path=/";
+  // Set the combined bookmarks in the cookie
+  document.cookie = "bookmarks=" + encodeURIComponent(bookmarksJSON) + "; path=/";
 
-    // You can also set an expiration time if needed, e.g., expires=Sun, 01 Jan 2023 00:00:00 GMT
-    initBookmarkDisplay();
-    // You can perform additional actions as needed
+  // You can also set an expiration time if needed, e.g., expires=Sun, 01 Jan 2023 00:00:00 GMT
+  initBookmarkDisplay();
+  // You can perform additional actions as needed
 
-    // Change the opacity of the bookmark button to indicate that it has been clicked
-    var bookmarkButton = document.querySelector(".my-bookmark");
-    if (bookmarkButton) {
-        bookmarkButton.style.opacity = 0.5; // Set the desired opacity value
-    }
+  // Change the opacity of the bookmark button to indicate that it has been clicked
+  var bookmarkButton = document.querySelector(".my-bookmark");
+  if (bookmarkButton) {
+    bookmarkButton.style.opacity = 0.5; // Set the desired opacity value
+  }
 }
