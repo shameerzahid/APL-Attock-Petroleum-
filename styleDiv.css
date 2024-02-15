@@ -307,8 +307,13 @@ input[type="checkbox"]:not(:checked) {
     margin-top: 5px;
     margin-right: 10px;
   } */
+
+  .noResult{
+    padding: 10px 5px ;
+  }
 .btn {
   background: #bed62f;
+  font-family: "Inter", sans-serif;
   color: #1a1a1a;
   padding: 10px 30px;
   border: none;

@@ -59,6 +59,12 @@ function displayRouteResults(stations) {
   const resultsContainer = document.getElementById("Route-results");
   resultsContainer.innerHTML = "";
 
+  if (stations.length === 0) {
+    const messageElement = document.createElement("div");
+    messageElement.textContent = "Oops! No results found.";
+    resultsContainer.appendChild(messageElement);
+    return;
+  }
   stations.forEach((station, index) => {
     const listItem = document.createElement("div");
     listItem.classList.add("list");

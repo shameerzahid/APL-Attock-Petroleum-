@@ -21,8 +21,7 @@
       Bookmark.style.display === "block" ? "none" : "none";
 
     // Rotate the down image based on the display status of the search div
-    downImage.style.transform =
-      searchDiv.style.display === "none" ? "rotate(0deg)" : "rotate(180deg)";
+    downImage.src = searchDiv.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
   }
 
   //   open dynamic search
@@ -44,10 +43,12 @@
       Bookmark.style.display === "block" ? "none" : "none";
       searchDiv.style.display =
       searchDiv.style.display === "block" ? "none" : "none";
-    downImage2.style.transform =
-      dynamicSearchDiv.style.display === "none"
-        ? "rotate(0deg)"
-        : "rotate(180deg)";
+    // downImage2.style.transform =
+    //   dynamicSearchDiv.style.display === "none"
+    //     ? "rotate(0deg)"
+    //     : "rotate(180deg)";
+    downImage2.src = dynamicSearchDiv.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
+
   }
 
   //   open RoutePlanning
@@ -69,10 +70,12 @@
       Bookmark.style.display === "block" ? "none" : "none";
       searchDiv.style.display =
       searchDiv.style.display === "block" ? "none" : "none";
-    downImage2.style.transform =
-      RoutePlanning.style.display === "none"
-        ? "rotate(0deg)"
-        : "rotate(180deg)";
+    // downImage2.style.transform =
+    //   RoutePlanning.style.display === "none"
+    //     ? "rotate(0deg)"
+    //     : "rotate(180deg)";
+    downImage2.src = RoutePlanning.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
+
   }
   function reloadPageAndToggleKeywordSearch() {
     // Reload the page
@@ -104,10 +107,11 @@
       Bookmark.style.display === "block" ? "none" : "none";
       searchDiv.style.display =
       searchDiv.style.display === "block" ? "none" : "none";
-    downImage2.style.transform =
-      KeywordSearch.style.display === "none"
-        ? "rotate(0deg)"
-        : "rotate(180deg)";
+    // downImage2.style.transform =
+    //   KeywordSearch.style.display === "none"
+    //     ? "rotate(0deg)"
+    //     : "rotate(180deg)";
+    downImage2.src = KeywordSearch.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
        
 
     // Set a timeout to delay showing the KeywordSearch div after the map reloads
@@ -143,8 +147,10 @@
       dynamicSearchDiv.style.display === "block" ? "none" : "none";
       searchDiv.style.display =
       searchDiv.style.display === "block" ? "none" : "none";
-    downImage2.style.transform =
-      Bookmark.style.display === "none" ? "rotate(0deg)" : "rotate(180deg)";
+    downImage2.src = Bookmark.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
+
+    // downImage2.style.transform =
+    //   Bookmark.style.display === "none" ? "rotate(0deg)" : "rotate(180deg)";
   }
 
   var checkboxes = document.querySelectorAll(".checkbox.custom");

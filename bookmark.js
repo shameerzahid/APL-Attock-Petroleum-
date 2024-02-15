@@ -15,7 +15,10 @@ function initBookmarkDisplay() {
   var bookmarks = getBookmarks();
   var bookmarkContainer = document.getElementById("open-Bookmark");
   bookmarkContainer.innerHTML = ""; // Clear existing content
-
+  if (bookmarks.length === 0) {
+    bookmarkContainer.innerHTML = '<div class="nothing-found noResult">Oops! No item found.</div>';
+    return;
+  }
   // Display each bookmark
   bookmarks.forEach(function (bookmark, index) {
     var bookmarkItem = document.createElement("div");

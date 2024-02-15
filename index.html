@@ -58,16 +58,21 @@
       position: absolute;
       top: 5%;
       left: 30px;
+      letter-spacing: -1.5px;
       z-index: 999;
       font-weight: 600;
       font-size: 18px;
     }
     .logo-1 {
       color: #fb4642;
-      font-size: 22px;
+      font-size: 26px;
+      letter-spacing: -1.5px;
       font-weight: 700;
       line-height: 26px;
       width: 200px;
+    }
+    .dropdown{
+      margin-top: 10px !important;
     }
   </style>
   <body>
@@ -90,7 +95,7 @@
           <div class="body">
             <ul>
               <!-- search -->
-              <li onclick="toggleSearch()">
+              <li style="cursor: pointer;" onclick="toggleSearch()">
                 <p class="center" style="cursor: pointer">
                   <span class="li-images"
                     ><img src="./Images/location.svg" alt="location"
@@ -100,6 +105,7 @@
                 <p id="show-search">
                   <img
                     id="searchDownImage"
+                    class="dropdown"
                     src="./Images/Down.svg"
                     alt="arrow"
                   />
@@ -131,13 +137,13 @@
               </div>
 
             <!--Dynamic search -->
-            <li onclick="toggleDynamicSearch()">
+            <li style="cursor: pointer;" onclick="toggleDynamicSearch()">
               <p class="center" style="cursor: pointer">
                 <span class="li-images"><img src="./Images/filter.svg" alt="location" /></span>
                 Dynamic Search
               </p>
               <p>
-                <img id="show-DynamicSearch" src="./Images/Down.svg" alt="arrow" />
+                <img id="show-DynamicSearch" class="dropdown" src="./Images/Down.svg" alt="arrow" />
               </p>
             </li>
             <!--Dynamic search div on click  -->
@@ -223,13 +229,13 @@
             </div>
 
             <!--Route search -->
-            <li onclick="toggleRoutePlanning()">
+            <li style="cursor: pointer;" onclick="toggleRoutePlanning()">
               <p class="center" style="cursor: pointer">
                 <span class="li-images"><img src="./Images/Route.svg" alt="location" /></span>
                 Route Planner
               </p>
               <p>
-                <img id="show-RoutePlanner" src="./Images/Down.svg" alt="arrow" />
+                <img id="show-RoutePlanner" class="dropdown" src="./Images/Down.svg" alt="arrow" />
               </p>
             </li>
             <!-- Route div on click  -->
@@ -252,13 +258,13 @@
             </div>
 
             <!--Keyword search -->
-            <li onclick="toggleKeywordSearch()">
+            <li style="cursor: pointer;" onclick="toggleKeywordSearch()">
               <p class="center" style="cursor: pointer">
                 <span class="li-images"><img src="./Images/Keyword.svg" alt="location" /></span>
                 Keyword Search
               </p>
               <p>
-                <img id="show-keywordSearch" src="./Images/Down.svg" alt="arrow" />
+                <img id="show-keywordSearch" class="dropdown" src="./Images/Down.svg" alt="arrow" />
               </p>
             </li>
             <!-- Keyword div on click  -->
@@ -275,13 +281,13 @@
             </div>
 
             <!--Bookmark search -->
-            <li onclick="togglebookmark()">
+            <li style="cursor: pointer;" onclick="togglebookmark()">
               <p class="center" style="cursor: pointer">
                 <span class="li-images"><img class="bookmark" src="./Images/Bookemark.svg" alt="location" /></span>
                 My Bookmarks
               </p>
               <p>
-                <img id="show-Bookmark" src="./Images/Down.svg" alt="arrow" />
+                <img id="show-Bookmark" class="dropdown" src="./Images/Down.svg" alt="arrow" />
               </p>
             </li>
             <!-- Route div on click  -->

@@ -55,6 +55,12 @@ function searchByKeyword() {
       keywordResultsContainer.appendChild(resultDiv);
     }
   }
+  if (resultCount === 0) {
+    const oopsMessage = document.createElement('div');
+    oopsMessage.textContent = 'Oops! No results found.';
+    oopsMessage.classList.add('oops-message');
+    keywordResultsContainer.appendChild(oopsMessage);
+  }
 }
 
 function showOnMap(latitude, longitude, station) {
