@@ -272,7 +272,7 @@ function addToBookmark(CusDesc, CusAdd, Lati, longi) {
   if (existingIndex > -1) {
     existingBookmarks.splice(existingIndex, 1); // Remove bookmark
     // Change the icon back to the original
-    document.querySelector(".my-bookmark").innerHTML = "<img class='book-img' src='././images/addtobook.svg'>Add To Bookmark";
+    document.querySelector(".my-bookmark").innerHTML = "<img class='book-img' src='./Images/addtobook.svg'>Add To Bookmark";
   } else {
     // Create an object with the bookmark information
     var bookmarkInfo = {
@@ -284,7 +284,7 @@ function addToBookmark(CusDesc, CusAdd, Lati, longi) {
     // Add the new bookmark to the existing bookmarks
     existingBookmarks.push(bookmarkInfo);
     // Change the icon to indicate it's bookmarked
-    document.querySelector(".my-bookmark").innerHTML = "<img class='book-img' src='././images/removefrombookmark.svg'>Remove From Bookmark";
+    document.querySelector(".my-bookmark").innerHTML = "<img class='book-img' src='./Images/removefrombookmark.svg'>Remove From Bookmark";
   }
 
   // Convert the array to a JSON string

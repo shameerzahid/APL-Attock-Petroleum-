@@ -110,7 +110,7 @@ function isGasStationBookmarked(CusDesc) {
 
 // Generate infoContent with dynamic bookmark button text
 var bookmarkText = isGasStationBookmarked(gasStation.CusDesc) ? "Remove From Bookmark" : "Add To Bookmark";
-var bookmarkImageSrc = isGasStationBookmarked(gasStation.CusDesc) ? "././images/removefrombookmark.svg" : "././images/addtobook.svg";
+var bookmarkImageSrc = isGasStationBookmarked(gasStation.CusDesc) ? "./Images/removefrombookmark.svg" : "./Images/addtobook.svg";
 infoContent += "<div class='my-bookmark' onclick='addToBookmark(\"" + gasStation.CusDesc + "\", \"" + gasStation.CusAddress + "\", " + gasStation.Lati + ", " + gasStation.longi + ")'><img class='book-img' src='" + bookmarkImageSrc + "'>" + bookmarkText + "</div>";
 
   infoContent += "<h2 class='info-heading'>Services</h2>";
