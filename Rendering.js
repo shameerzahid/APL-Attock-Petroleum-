@@ -6,14 +6,6 @@ function toggleSearch() {
   var Bookmark = document.getElementById("open-Bookmark");
   var downImage = document.getElementById("searchDownImage");
 
-  var dynamisearchDownImage = document.getElementById("show-DynamicSearch");
-  dynamisearchDownImage.src = "./Images/down.svg";
-  var RouteDownImage = document.getElementById("show-RoutePlanner");
-  RouteDownImage.src = "./Images/down.svg";
-var keywordDownImage = document.getElementById("show-keywordSearch");
-keywordDownImage.src = "./Images/down.svg";
-var bookmarkDownImage = document.getElementById("show-Bookmark");
-bookmarkDownImage.src = "./Images/down.svg";
   // Ensure initial display state is set correctly when the page loads
   if (searchDiv.style.display === "") {
       searchDiv.style.display = "none"; // Set initial display state to "none"
@@ -28,9 +20,6 @@ bookmarkDownImage.src = "./Images/down.svg";
 
   // Rotate the down image based on the display status of the search div
   downImage.src = searchDiv.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
-  // Get a reference to the open-DynamicSearch div
-
-
 }
 
 
@@ -55,18 +44,9 @@ bookmarkDownImage.src = "./Images/down.svg";
     RoutePlanning.style.display = "none";
     KeywordSearch.style.display = "none";
     Bookmark.style.display = "none";
-// Get the open-search div
-var RouteDownImage = document.getElementById("show-RoutePlanner");
-RouteDownImage.src = "./Images/down.svg";
-var searchDownImage = document.getElementById("searchDownImage");
-searchDownImage.src = "./Images/down.svg";
-var keywordDownImage = document.getElementById("show-keywordSearch");
-keywordDownImage.src = "./Images/down.svg";
-var bookmarkDownImage = document.getElementById("show-Bookmark");
-bookmarkDownImage.src = "./Images/Down.svg";
 
     downImage2.src = dynamicSearchDiv.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
-   
+
   }
 
   //   open RoutePlanning
@@ -95,14 +75,6 @@ bookmarkDownImage.src = "./Images/Down.svg";
     KeywordSearch.style.display = "none";
     Bookmark.style.display = "none";
 
-    var searchDownImage = document.getElementById("searchDownImage");
-  searchDownImage.src = "./Images/down.svg";
-    var dynamisearchDownImage = document.getElementById("show-DynamicSearch");
-  dynamisearchDownImage.src = "./Images/down.svg";
-var keywordDownImage = document.getElementById("show-keywordSearch");
-keywordDownImage.src = "./Images/down.svg";
-var bookmarkDownImage = document.getElementById("show-Bookmark");
-bookmarkDownImage.src = "./Images/down.svg";
     downImage2.src = RoutePlanning.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
 
   }
@@ -125,7 +97,6 @@ bookmarkDownImage.src = "./Images/down.svg";
     var Bookmark = document.getElementById("open-Bookmark");
     var downImage2 = document.getElementById("show-keywordSearch");
 
-    
     // Ensure initial display state is set correctly when the page loads
     if (KeywordSearch.style.display === "") {
         KeywordSearch.style.display = "none"; // Set initial display state to "none"
@@ -137,14 +108,7 @@ bookmarkDownImage.src = "./Images/down.svg";
     dynamicSearchDiv.style.display = "none";
     RoutePlanning.style.display = "none";
     Bookmark.style.display = "none";
-    var searchDownImage = document.getElementById("searchDownImage");
-    searchDownImage.src = "./Images/down.svg";
-      var dynamisearchDownImage = document.getElementById("show-DynamicSearch");
-    dynamisearchDownImage.src = "./Images/down.svg";
-    var RouteDownImage = document.getElementById("show-RoutePlanner");
-    RouteDownImage.src = "./Images/down.svg";
-  var bookmarkDownImage = document.getElementById("show-Bookmark");
-  bookmarkDownImage.src = "./Images/down.svg";
+
     downImage2.src = KeywordSearch.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
 }
 
@@ -168,7 +132,6 @@ bookmarkDownImage.src = "./Images/down.svg";
     var Bookmark = document.getElementById("open-Bookmark");
     var downImage2 = document.getElementById("show-Bookmark");
 
-   
     // Ensure initial display state is set correctly when the page loads
     if (Bookmark.style.display === "") {
         Bookmark.style.display = "none"; // Set initial display state to "none"
@@ -180,14 +143,7 @@ bookmarkDownImage.src = "./Images/down.svg";
     dynamicSearchDiv.style.display = "none";
     RoutePlanning.style.display = "none";
     KeywordSearch.style.display = "none";
-    var searchDownImage = document.getElementById("searchDownImage");
-    searchDownImage.src = "./Images/down.svg";
-      var dynamisearchDownImage = document.getElementById("show-DynamicSearch");
-    dynamisearchDownImage.src = "./Images/down.svg";
-    var RouteDownImage = document.getElementById("show-RoutePlanner");
-    RouteDownImage.src = "./Images/down.svg";
-    var keywordDownImage = document.getElementById("show-keywordSearch");
-    keywordDownImage.src = "./Images/down.svg";
+
     downImage2.src = Bookmark.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
 }
 
