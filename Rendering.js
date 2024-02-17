@@ -1,28 +1,39 @@
+function toggleSearch() {
+  var searchDiv = document.getElementById("open-search");
+  var dynamicSearchDiv = document.getElementById("open-DynamicSearch");
+  var RoutePlanning = document.getElementById("open-RoutePlanner");
+  var KeywordSearch = document.getElementById("open-keywordSearch");
+  var Bookmark = document.getElementById("open-Bookmark");
+  var downImage = document.getElementById("searchDownImage");
 
- function toggleSearch() {
-    var searchDiv = document.getElementById("open-search");
-    var dynamicSearchDiv = document.getElementById("open-DynamicSearch");
-    var RoutePlanning = document.getElementById("open-RoutePlanner");
-    var KeywordSearch = document.getElementById("open-keywordSearch");
-    var Bookmark = document.getElementById("open-Bookmark");
-
-    var downImage = document.getElementById("searchDownImage");
-
-    // Toggle the display of the search div
-    searchDiv.style.display =
-      searchDiv.style.display === "none" ? "block" : "none";
-      dynamicSearchDiv.style.display =
-      dynamicSearchDiv.style.display === "block" ? "none" : "none";
-      RoutePlanning.style.display =
-      RoutePlanning.style.display === "block" ? "none" : "none";
-      KeywordSearch.style.display =
-      KeywordSearch.style.display === "block" ? "none" : "none";
-      Bookmark.style.display =
-      Bookmark.style.display === "block" ? "none" : "none";
-
-    // Rotate the down image based on the display status of the search div
-    downImage.src = searchDiv.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
+  var dynamisearchDownImage = document.getElementById("show-DynamicSearch");
+  dynamisearchDownImage.src = "./Images/down.svg";
+  var RouteDownImage = document.getElementById("show-RoutePlanner");
+  RouteDownImage.src = "./Images/down.svg";
+var keywordDownImage = document.getElementById("show-keywordSearch");
+keywordDownImage.src = "./Images/down.svg";
+var bookmarkDownImage = document.getElementById("show-Bookmark");
+bookmarkDownImage.src = "./Images/down.svg";
+  // Ensure initial display state is set correctly when the page loads
+  if (searchDiv.style.display === "") {
+      searchDiv.style.display = "none"; // Set initial display state to "none"
   }
+
+  // Toggle the display of the search div
+  searchDiv.style.display = searchDiv.style.display === "none" ? "block" : "none";
+  dynamicSearchDiv.style.display = "none"; // Hide other divs
+  RoutePlanning.style.display = "none";
+  KeywordSearch.style.display = "none";
+  Bookmark.style.display = "none";
+
+  // Rotate the down image based on the display status of the search div
+  downImage.src = searchDiv.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
+  // Get a reference to the open-DynamicSearch div
+
+
+}
+
+
 
   //   open dynamic search
   function toggleDynamicSearch() {
@@ -32,23 +43,30 @@
     var KeywordSearch = document.getElementById("open-keywordSearch");
     var Bookmark = document.getElementById("open-Bookmark");
     var downImage2 = document.getElementById("show-DynamicSearch");
-    // Toggle the display of the Dynamic Search div
-    dynamicSearchDiv.style.display =
-      dynamicSearchDiv.style.display === "none" ? "block" : "none";
-      RoutePlanning.style.display =
-      RoutePlanning.style.display === "block" ? "none" : "none";
-      KeywordSearch.style.display =
-      KeywordSearch.style.display === "block" ? "none" : "none";
-      Bookmark.style.display =
-      Bookmark.style.display === "block" ? "none" : "none";
-      searchDiv.style.display =
-      searchDiv.style.display === "block" ? "none" : "none";
-    // downImage2.style.transform =
-    //   dynamicSearchDiv.style.display === "none"
-    //     ? "rotate(0deg)"
-    //     : "rotate(180deg)";
-    downImage2.src = dynamicSearchDiv.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
+// Get the open-search div
+ var RouteDownImage = document.getElementById("show-RoutePlanner");
+    RouteDownImage.src = "./Images/down.svg";
+var searchDownImage = document.getElementById("searchDownImage");
+  searchDownImage.src = "./Images/down.svg";
+  var keywordDownImage = document.getElementById("show-keywordSearch");
+  keywordDownImage.src = "./Images/down.svg";
+  var bookmarkDownImage = document.getElementById("show-Bookmark");
+  bookmarkDownImage.src = "./Images/down.svg";
+  
+    // Ensure initial display state is set correctly when the page loads
+    if (dynamicSearchDiv.style.display === "") {
+        dynamicSearchDiv.style.display = "none"; // Set initial display state to "none"
+    }
 
+    // Toggle the display of the Dynamic Search div
+    dynamicSearchDiv.style.display = dynamicSearchDiv.style.display === "none" ? "block" : "none";
+    searchDiv.style.display = "none"; // Hide other divs
+    RoutePlanning.style.display = "none";
+    KeywordSearch.style.display = "none";
+    Bookmark.style.display = "none";
+
+    downImage2.src = dynamicSearchDiv.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
+   
   }
 
   //   open RoutePlanning
@@ -58,22 +76,33 @@
     var RoutePlanning = document.getElementById("open-RoutePlanner");
     var KeywordSearch = document.getElementById("open-keywordSearch");
     var Bookmark = document.getElementById("open-Bookmark");
+    var searchDiv = document.getElementById("open-search");
+    var dynamicSearchDiv = document.getElementById("open-DynamicSearch");
+    var RoutePlanning = document.getElementById("open-RoutePlanner");
+    var KeywordSearch = document.getElementById("open-keywordSearch");
+    var Bookmark = document.getElementById("open-Bookmark");
     var downImage2 = document.getElementById("show-RoutePlanner");
-    // Toggle the display of the Dynamic Search div
-    RoutePlanning.style.display =
-      RoutePlanning.style.display === "none" ? "block" : "none";
-      dynamicSearchDiv.style.display =
-      dynamicSearchDiv.style.display === "block" ? "none" : "none";
-      KeywordSearch.style.display =
-      KeywordSearch.style.display === "block" ? "none" : "none";
-      Bookmark.style.display =
-      Bookmark.style.display === "block" ? "none" : "none";
-      searchDiv.style.display =
-      searchDiv.style.display === "block" ? "none" : "none";
-    // downImage2.style.transform =
-    //   RoutePlanning.style.display === "none"
-    //     ? "rotate(0deg)"
-    //     : "rotate(180deg)";
+
+    var searchDownImage = document.getElementById("searchDownImage");
+  searchDownImage.src = "./Images/down.svg";
+    var dynamisearchDownImage = document.getElementById("show-DynamicSearch");
+  dynamisearchDownImage.src = "./Images/down.svg";
+var keywordDownImage = document.getElementById("show-keywordSearch");
+keywordDownImage.src = "./Images/down.svg";
+var bookmarkDownImage = document.getElementById("show-Bookmark");
+bookmarkDownImage.src = "./Images/down.svg";
+    // Ensure initial display state is set correctly when the page loads
+    if (RoutePlanning.style.display === "") {
+        RoutePlanning.style.display = "none"; // Set initial display state to "none"
+    }
+
+    // Toggle the display of the RoutePlanning div
+    RoutePlanning.style.display = RoutePlanning.style.display === "none" ? "block" : "none";
+    searchDiv.style.display = "none"; // Hide other divs
+    dynamicSearchDiv.style.display = "none";
+    KeywordSearch.style.display = "none";
+    Bookmark.style.display = "none";
+
     downImage2.src = RoutePlanning.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
 
   }
@@ -89,34 +118,36 @@
 
   //   open keyword search
   function toggleKeywordSearch() {
-   
     var searchDiv = document.getElementById("open-search");
     var dynamicSearchDiv = document.getElementById("open-DynamicSearch");
     var RoutePlanning = document.getElementById("open-RoutePlanner");
     var KeywordSearch = document.getElementById("open-keywordSearch");
     var Bookmark = document.getElementById("open-Bookmark");
     var downImage2 = document.getElementById("show-keywordSearch");
-    // Toggle the display of the Dynamic Search div
-    KeywordSearch.style.display =
-      KeywordSearch.style.display === "none" ? "block" : "none";
-      RoutePlanning.style.display =
-      RoutePlanning.style.display === "block" ? "none" : "none";
-      dynamicSearchDiv.style.display =
-      dynamicSearchDiv.style.display === "block" ? "none" : "none";
-      Bookmark.style.display =
-      Bookmark.style.display === "block" ? "none" : "none";
-      searchDiv.style.display =
-      searchDiv.style.display === "block" ? "none" : "none";
-    // downImage2.style.transform =
-    //   KeywordSearch.style.display === "none"
-    //     ? "rotate(0deg)"
-    //     : "rotate(180deg)";
+
+    var searchDownImage = document.getElementById("searchDownImage");
+    searchDownImage.src = "./Images/down.svg";
+      var dynamisearchDownImage = document.getElementById("show-DynamicSearch");
+    dynamisearchDownImage.src = "./Images/down.svg";
+    var RouteDownImage = document.getElementById("show-RoutePlanner");
+    RouteDownImage.src = "./Images/down.svg";
+  var bookmarkDownImage = document.getElementById("show-Bookmark");
+  bookmarkDownImage.src = "./Images/down.svg";
+    // Ensure initial display state is set correctly when the page loads
+    if (KeywordSearch.style.display === "") {
+        KeywordSearch.style.display = "none"; // Set initial display state to "none"
+    }
+
+    // Toggle the display of the KeywordSearch div
+    KeywordSearch.style.display = KeywordSearch.style.display === "none" ? "block" : "none";
+    searchDiv.style.display = "none"; // Hide other divs
+    dynamicSearchDiv.style.display = "none";
+    RoutePlanning.style.display = "none";
+    Bookmark.style.display = "none";
+
     downImage2.src = KeywordSearch.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
-       
+}
 
-    // Set a timeout to delay showing the KeywordSearch div after the map reloads
-
-  }
 
 
   function togglefilter(){
@@ -136,22 +167,30 @@
     var KeywordSearch = document.getElementById("open-keywordSearch");
     var Bookmark = document.getElementById("open-Bookmark");
     var downImage2 = document.getElementById("show-Bookmark");
-    // Toggle the display of the Dynamic Search div
-    Bookmark.style.display =
-      Bookmark.style.display === "none" ? "block" : "none";
-      KeywordSearch.style.display =
-      KeywordSearch.style.display === "block" ? "none" : "none";
-      RoutePlanning.style.display =
-      RoutePlanning.style.display === "block" ? "none" : "none";
-      dynamicSearchDiv.style.display =
-      dynamicSearchDiv.style.display === "block" ? "none" : "none";
-      searchDiv.style.display =
-      searchDiv.style.display === "block" ? "none" : "none";
-    downImage2.src = Bookmark.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
 
-    // downImage2.style.transform =
-    //   Bookmark.style.display === "none" ? "rotate(0deg)" : "rotate(180deg)";
-  }
+    var searchDownImage = document.getElementById("searchDownImage");
+    searchDownImage.src = "./Images/down.svg";
+      var dynamisearchDownImage = document.getElementById("show-DynamicSearch");
+    dynamisearchDownImage.src = "./Images/down.svg";
+    var RouteDownImage = document.getElementById("show-RoutePlanner");
+    RouteDownImage.src = "./Images/down.svg";
+    var keywordDownImage = document.getElementById("show-keywordSearch");
+    keywordDownImage.src = "./Images/down.svg";
+    // Ensure initial display state is set correctly when the page loads
+    if (Bookmark.style.display === "") {
+        Bookmark.style.display = "none"; // Set initial display state to "none"
+    }
+
+    // Toggle the display of the Bookmark div
+    Bookmark.style.display = Bookmark.style.display === "none" ? "block" : "none";
+    searchDiv.style.display = "none"; // Hide other divs
+    dynamicSearchDiv.style.display = "none";
+    RoutePlanning.style.display = "none";
+    KeywordSearch.style.display = "none";
+
+    downImage2.src = Bookmark.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
+}
+
 
   var checkboxes = document.querySelectorAll(".checkbox.custom");
   checkboxes.forEach(function (checkbox) {

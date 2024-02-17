@@ -27,14 +27,14 @@ function searchByKeyword() {
       resultDiv.appendChild(numberP);
 
       const infoDiv = document.createElement('div');
-
+      infoDiv.classList.add("searched-data")
       const p1 = document.createElement('p');
-      p1.classList.add('p1', 'margin2');
+      p1.classList.add('p1', 'noneclass');
       p1.textContent = station.CusDesc;
       infoDiv.appendChild(p1);
 
       const p2 = document.createElement('p');
-      p2.classList.add('p2', 'margin2');
+      p2.classList.add('p2', 'noneclass');
       p2.textContent = station.CusAddress;
       infoDiv.appendChild(p2);
 
@@ -59,6 +59,8 @@ function searchByKeyword() {
     const oopsMessage = document.createElement('div');
     oopsMessage.textContent = 'Oops! No results found.';
     oopsMessage.classList.add('oops-message');
+    oopsMessage.style.marginTop = '10px';
+    oopsMessage.style.marginBottom = '6px';
     keywordResultsContainer.appendChild(oopsMessage);
   }
 }
@@ -96,16 +98,21 @@ function showOnMap(latitude, longitude, station) {
     "<p class='info-text'>" +
     Object.keys(station["Fuel Types"][0]).join(", ") +
     "</p>";
-  infoContent +=
-    "<div class='my-bookmark' onclick='addToBookmark(\"" +
-    station.CusDesc +
-    '", "' +
-    station.CusAddress +
-    '", ' +
-    station.Lati +
-    ", " +
-    station.longi +
-    ")'><img class='book-img' src='./Vector.png'>Add To Bookmark  </div>";
+     // add image here
+// Function to check if a gas station is bookmarked
+function isGasStationBookmarked(CusDesc) {
+  var existingBookmarks = getBookmarks();
+  console.log(existingBookmarks)
+  return existingBookmarks.some(function(bookmark) {
+    return (bookmark.CusDesc === CusDesc)
+  });
+}
+
+// Generate infoContent with dynamic bookmark button text
+var bookmarkText = isGasStationBookmarked(gasStation.CusDesc) ? "Remove From Bookmark" : "Add To Bookmark";
+var bookmarkImageSrc = isGasStationBookmarked(gasStation.CusDesc) ? "././images/removefrombookmark.svg" : "././images/addtobook.svg";
+infoContent += "<div class='my-bookmark' onclick='addToBookmark(\"" + gasStation.CusDesc + "\", \"" + gasStation.CusAddress + "\", " + gasStation.Lati + ", " + gasStation.longi + ")'><img class='book-img' src='" + bookmarkImageSrc + "'>" + bookmarkText + "</div>";
+
   infoContent += "<h2 class='info-heading'>Services</h2>";
 
   // Assuming gasStation.Services is available
@@ -134,10 +141,10 @@ function addToBookmark(CusDesc, CusAdd, Lati, longi) {
 
   // Create an object with the bookmark information
   var bookmarkInfo = {
-    CusDesc: CusDesc,
-    CusAdd: CusAdd,
-    Lati: Lati,
-    longi: longi
+      CusDesc: CusDesc,
+      CusAdd: CusAdd,
+      Lati: Lati,
+      longi: longi
   };
 
   // Add the new bookmark to the existing bookmarks
@@ -153,9 +160,13 @@ function addToBookmark(CusDesc, CusAdd, Lati, longi) {
   initBookmarkDisplay();
   // You can perform additional actions as needed
 
-  // Change the opacity of the bookmark button to indicate that it has been clicked
-  var bookmarkButton = document.querySelector(".my-bookmark");
+  // Change the SVG content
+  var bookmarkButton = document.querySelector(".my-bookmark svg");
   if (bookmarkButton) {
-    bookmarkButton.style.opacity = 0.5; // Set the desired opacity value
+    bookmarkButton.innerHTML = `
+      <svg width="12px" height="13px" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 13.4673L6.24548 17.6665C5.63355 18.3509 4.5 17.9181 4.5 17V3C4.5 2.44772 4.94772 2 5.5 2H14.5C15.0523 2 15.5 2.44772 15.5 3V17C15.5 17.9181 14.3665 18.3509 13.7545 17.6665L10 13.4673Z" fill="#000000"/>
+      </svg>
+    `;
   }
 }

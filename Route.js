@@ -62,17 +62,20 @@ function displayRouteResults(stations) {
   if (stations.length === 0) {
     const messageElement = document.createElement("div");
     messageElement.textContent = "Oops! No results found.";
+    messageElement.style.marginTop = "10px";
+    messageElement.style.marginBottom = "8px";
     resultsContainer.appendChild(messageElement);
     return;
   }
+  
   stations.forEach((station, index) => {
     const listItem = document.createElement("div");
     listItem.classList.add("list");
     listItem.innerHTML = `
               <p class="number">${index + 1}</p>
-              <div>
-                  <p class="p1 margin2">${station.CusDesc}</p>
-                  <p class="p2 margin2">${station.CusAddress}</p>
+              <div class="searched-data">
+                  <p class="p1">${station.CusDesc}</p>
+                  <p class="p2">${station.CusAddress}</p>
               </div>
               <div>
                   <img class="show-popup" src="./Images/go.svg" alt=""/>
@@ -253,36 +256,46 @@ function moveToLocation(latitude, longitude, stationName) {
   infoWindow.open(map, marker);
 }
 var bookmarks = [];
-
 function addToBookmark(CusDesc, CusAdd, Lati, longi) {
   // Retrieve existing bookmarks from the cookie
   var existingBookmarks = getBookmarks();
 
-  // Create an object with the bookmark information
-  var bookmarkInfo = {
-    CusDesc: CusDesc,
-    CusAdd: CusAdd,
-    Lati: Lati,
-    longi: longi,
-  };
+  // Check if the bookmark already exists
+  var existingIndex = existingBookmarks.findIndex(function(bookmark) {
+    return bookmark.CusDesc === CusDesc && 
+           bookmark.CusAdd === CusAdd && 
+           bookmark.Lati === Lati && 
+           bookmark.longi === longi;
+  });
 
-  // Add the new bookmark to the existing bookmarks
-  existingBookmarks.push(bookmarkInfo);
+  // If the bookmark exists, remove it; otherwise, add it
+  if (existingIndex > -1) {
+    existingBookmarks.splice(existingIndex, 1); // Remove bookmark
+    // Change the icon back to the original
+    document.querySelector(".my-bookmark").innerHTML = "<img class='book-img' src='././images/addtobook.svg'>Add To Bookmark";
+  } else {
+    // Create an object with the bookmark information
+    var bookmarkInfo = {
+      CusDesc: CusDesc,
+      CusAdd: CusAdd,
+      Lati: Lati,
+      longi: longi
+    };
+    // Add the new bookmark to the existing bookmarks
+    existingBookmarks.push(bookmarkInfo);
+    // Change the icon to indicate it's bookmarked
+    document.querySelector(".my-bookmark").innerHTML = "<img class='book-img' src='././images/removefrombookmark.svg'>Remove From Bookmark";
+  }
 
   // Convert the array to a JSON string
   var bookmarksJSON = JSON.stringify(existingBookmarks);
 
   // Set the combined bookmarks in the cookie
-  document.cookie =
-    "bookmarks=" + encodeURIComponent(bookmarksJSON) + "; path=/";
+  document.cookie = "bookmarks=" + encodeURIComponent(bookmarksJSON) + "; path=/";
 
   // You can also set an expiration time if needed, e.g., expires=Sun, 01 Jan 2023 00:00:00 GMT
   initBookmarkDisplay();
   // You can perform additional actions as needed
-
-  // Change the opacity of the bookmark button to indicate that it has been clicked
-  var bookmarkButton = document.querySelector(".my-bookmark");
-  if (bookmarkButton) {
-    bookmarkButton.style.opacity = 0.5; // Set the desired opacity value
-  }
 }
+
+

@@ -124,7 +124,19 @@ function displayStationInfo(marker, gasStation) {
 
     
     // add image here
-    infoContent += "<div class='my-bookmark' onclick='addToBookmark(\"" + gasStation.CusDesc + "\", \"" + gasStation.CusAddress + "\", " + gasStation.Lati + ", " + gasStation.longi + ")'><img class='book-img' src='./Vector.png'>Add To Bookmark  </div>";
+// Function to check if a gas station is bookmarked
+function isGasStationBookmarked(CusDesc) {
+  var existingBookmarks = getBookmarks();
+  console.log(existingBookmarks)
+  return existingBookmarks.some(function(bookmark) {
+    return (bookmark.CusDesc === CusDesc)
+  });
+}
+
+// Generate infoContent with dynamic bookmark button text
+var bookmarkText = isGasStationBookmarked(gasStation.CusDesc) ? "Remove From Bookmark" : "Add To Bookmark";
+var bookmarkImageSrc = isGasStationBookmarked(gasStation.CusDesc) ? "././images/removefrombookmark.svg" : "././images/addtobook.svg";
+infoContent += "<div class='my-bookmark' onclick='addToBookmark(\"" + gasStation.CusDesc + "\", \"" + gasStation.CusAddress + "\", " + gasStation.Lati + ", " + gasStation.longi + ")'><img class='book-img' src='" + bookmarkImageSrc + "'>" + bookmarkText + "</div>";
 
 
   infoContent += "<h2 class='info-heading'>Services</h2>";

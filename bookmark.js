@@ -16,7 +16,7 @@ function initBookmarkDisplay() {
   var bookmarkContainer = document.getElementById("open-Bookmark");
   bookmarkContainer.innerHTML = ""; // Clear existing content
   if (bookmarks.length === 0) {
-    bookmarkContainer.innerHTML = '<div class="nothing-found noResult">Oops! No item found.</div>';
+    bookmarkContainer.innerHTML = '<div class="center" style="padding: 8px">Oops! No item found.</div>';
     return;
   }
   // Display each bookmark
@@ -26,9 +26,9 @@ function initBookmarkDisplay() {
     bookmarkItem.innerHTML = `
           <div class="list bookmark-list">
               <p class="number">${index + 1}</p>
-              <div>
-                  <p class=" p1 margin">${bookmark.CusDesc}</p>
-                  <p class="p2  margin">${bookmark.CusAdd}</p>
+              <div class="searched-data">
+                  <p class=" p1">${bookmark.CusDesc}</p>
+                  <p class="p2">${bookmark.CusAdd}</p>
               </div>
               <div class="img-flex">
                   <img onclick="removeBookmark(${index})" src="./Images/unmarkit.svg" alt="unmark" />

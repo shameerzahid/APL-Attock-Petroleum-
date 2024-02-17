@@ -34,7 +34,7 @@
   cursor: pointer;
 }
 .header {
-  background-color: #373e0e;
+  background-color: #BED62F;
   padding: 15px 25px 15px 25px;
   display: flex;
   color: #fff;
@@ -109,7 +109,7 @@ input {
 }
 .Search-input {
   width: 80%;
-  margin-left: 15px;
+  margin-left: 10px;
   /* border: 1px solid red; */
   background: #bed62f;
   display: flex;
@@ -127,12 +127,16 @@ input {
   justify-content: center;
   background-color: #fff;
   border-radius: 5px;
-  width: 35px;
-  height: 35px;
-  margin-left: 8px;
+  width: 34px;
+  height: 34px;
+  margin-left: 6px;
 }
 .searched-data {
-  margin-right: 80px;
+  width: 60%;
+  padding-left: 10px;
+  margin-right: 5%;
+}
+.list img{
 }
 .searched-data2 {
   margin-right: 80px;
@@ -189,10 +193,10 @@ input {
   color: #000;
   font-size: 36px;
   opacity: 0.2;
+  width: 19%;
   font-style: normal;
   font-weight: 900;
   line-height: 26px;
-  margin-right: 10px;
 }
 button{
   cursor: pointer;

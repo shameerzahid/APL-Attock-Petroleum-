@@ -33,7 +33,15 @@ function clearSearchResults() {
 function displaySearchResults(results) {
   var searchResultsDiv = document.getElementById("search-results");
   searchResultsDiv.innerHTML = ""; // Clear previous results
-
+  if (results.length === 0) {
+    const oopsMessage = document.createElement('div');
+    oopsMessage.textContent = 'Oops! No results found.';
+    oopsMessage.classList.add('oops-message');
+    oopsMessage.style.marginTop = '10px';
+    oopsMessage.style.marginBottom = '6px';
+    searchResultsDiv.appendChild(oopsMessage);
+    return; // Exit the function
+  }
   results.forEach(function (result, index) {
     var customerDescription = result.CusDesc;
     var customerAddress = result.CusAddress;
@@ -50,7 +58,6 @@ function displaySearchResults(results) {
 
     var searchedDataDiv = document.createElement("div");
     searchedDataDiv.className = "searched-data";
-    searchedDataDiv.style.paddingLeft = "10px";
 
     var p1 = document.createElement("p");
     p1.className = "p1";
@@ -169,10 +176,10 @@ function addToBookmark(CusDesc, CusAdd, Lati, longi) {
 
   // Create an object with the bookmark information
   var bookmarkInfo = {
-    CusDesc: CusDesc,
-    CusAdd: CusAdd,
-    Lati: Lati,
-    longi: longi
+      CusDesc: CusDesc,
+      CusAdd: CusAdd,
+      Lati: Lati,
+      longi: longi
   };
 
   // Add the new bookmark to the existing bookmarks
@@ -188,9 +195,13 @@ function addToBookmark(CusDesc, CusAdd, Lati, longi) {
   initBookmarkDisplay();
   // You can perform additional actions as needed
 
-  // Change the opacity of the bookmark button to indicate that it has been clicked
-  var bookmarkButton = document.querySelector(".my-bookmark");
+  // Change the SVG content
+  var bookmarkButton = document.querySelector(".my-bookmark svg");
   if (bookmarkButton) {
-    bookmarkButton.style.opacity = 0.5; // Set the desired opacity value
+    bookmarkButton.innerHTML = `
+      <svg width="12px" height="13px" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 13.4673L6.24548 17.6665C5.63355 18.3509 4.5 17.9181 4.5 17V3C4.5 2.44772 4.94772 2 5.5 2H14.5C15.0523 2 15.5 2.44772 15.5 3V17C15.5 17.9181 14.3665 18.3509 13.7545 17.6665L10 13.4673Z" fill="#000000"/>
+      </svg>
+    `;
   }
 }

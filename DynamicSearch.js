@@ -148,10 +148,15 @@ function displayGasStations(gasStations, containerId) {
   var container = document.getElementById(containerId);
   container.innerHTML = ""; // Clear previous results
 
-  if (gasStations.length === 0) {
+ if (gasStations.length === 0) {
     // Display a message when no results are found
-    container.innerHTML =
-      '<div class="nothing-found">Oops! No results found.</div>';
+    const oopsMessage = document.createElement('div');
+    oopsMessage.textContent = 'Oops! No results found.';
+    oopsMessage.classList.add('oops-message');
+    oopsMessage.style.marginTop = '10px';
+    oopsMessage.style.marginBottom = '6px';
+    container.appendChild(oopsMessage);
+    return; // Exit the function
   } else {
     // Display the filtered gas stations
     gasStations.forEach(function (station, index) {
@@ -159,9 +164,9 @@ function displayGasStations(gasStations, containerId) {
       listItem.className = "list";
       listItem.innerHTML = `
                 <p class="number">${index + 1}</p>
-                <div>
-                    <p class="p1 margin2">${station.CusDesc}</p>
-                    <p class="p2 margin2">${station.CusAddress}</p>
+                <div class="searched-data">
+                    <p class="p1 ">${station.CusDesc}</p>
+                    <p class="p2 ">${station.CusAddress}</p>
                 </div>
                 <div>
                     <img class="map-show" src="./Images/go.svg" alt=""
@@ -210,16 +215,21 @@ function displayGasStations(gasStations, containerId) {
           "<p class='info-text'>" +
           Object.keys(station["Fuel Types"][0]).join(", ") +
           "</p>";
-        infoContent +=
-          "<div class='my-bookmark' onclick='addToBookmark(\"" +
-          station.CusDesc +
-          '", "' +
-          station.CusAddress +
-          '", ' +
-          station.Lati +
-          ", " +
-          station.longi +
-          ")'><img class='book-img' src='./Vector.png'>Add To Bookmark  </div>";
+     // add image here
+// Function to check if a gas station is bookmarked
+function isGasStationBookmarked(CusDesc) {
+  var existingBookmarks = getBookmarks();
+  console.log(existingBookmarks)
+  return existingBookmarks.some(function(bookmark) {
+    return (bookmark.CusDesc === CusDesc)
+  });
+}
+
+// Generate infoContent with dynamic bookmark button text
+var bookmarkText = isGasStationBookmarked(gasStation.CusDesc) ? "Remove From Bookmark" : "Add To Bookmark";
+var bookmarkImageSrc = isGasStationBookmarked(gasStation.CusDesc) ? "././images/removefrombookmark.svg" : "././images/addtobook.svg";
+infoContent += "<div class='my-bookmark' onclick='addToBookmark(\"" + gasStation.CusDesc + "\", \"" + gasStation.CusAddress + "\", " + gasStation.Lati + ", " + gasStation.longi + ")'><img class='book-img' src='" + bookmarkImageSrc + "'>" + bookmarkText + "</div>";
+
         infoContent += "<h2 class='info-heading'>Services</h2>";
 
         // Assuming gasStation.Services is available
@@ -248,5 +258,39 @@ function logSelectedFilters(selectedFuelTypes, selectedServices) {
   console.log("Selected Fuel Types:", selectedFuelTypes);
   console.log("Selected Services:", selectedServices);
 }
+function addToBookmark(CusDesc, CusAdd, Lati, longi) {
+  // Retrieve existing bookmarks from the cookie
+  var existingBookmarks = getBookmarks();
 
+  // Create an object with the bookmark information
+  var bookmarkInfo = {
+      CusDesc: CusDesc,
+      CusAdd: CusAdd,
+      Lati: Lati,
+      longi: longi
+  };
+
+  // Add the new bookmark to the existing bookmarks
+  existingBookmarks.push(bookmarkInfo);
+
+  // Convert the array to a JSON string
+  var bookmarksJSON = JSON.stringify(existingBookmarks);
+
+  // Set the combined bookmarks in the cookie
+  document.cookie = "bookmarks=" + encodeURIComponent(bookmarksJSON) + "; path=/";
+
+  // You can also set an expiration time if needed, e.g., expires=Sun, 01 Jan 2023 00:00:00 GMT
+  initBookmarkDisplay();
+  // You can perform additional actions as needed
+
+  // Change the SVG content
+  var bookmarkButton = document.querySelector(".my-bookmark svg");
+  if (bookmarkButton) {
+    bookmarkButton.innerHTML = `
+      <svg width="12px" height="13px" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 13.4673L6.24548 17.6665C5.63355 18.3509 4.5 17.9181 4.5 17V3C4.5 2.44772 4.94772 2 5.5 2H14.5C15.0523 2 15.5 2.44772 15.5 3V17C15.5 17.9181 14.3665 18.3509 13.7545 17.6665L10 13.4673Z" fill="#000000"/>
+      </svg>
+    `;
+  }
+}
 

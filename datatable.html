@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Table</title>
+    <style>
+        /* CSS for table */
+        #gasStationTable {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 1px;
+        }
+
+        #gasStationTable th, #gasStationTable td {
+            border: 1px solid #373E0E;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #gasStationTable th {
+            background-color: #373E0E;
+            color: #fff;
+        }
+
+        #gasStationTable td[colspan="4"] {
+            background-color: #373E0E;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .city-row {
+            /* border-top: 1px solid #fff; */
+            border-bottom: 1px solid #fff;
+        }
+
+        /* CSS for search bar */
+        #searchBar {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: flex-end; /* Align to the right */
+            position: relative; /* Ensure the icon is positioned relative to the search bar */
+        }
+
+        #searchInput {
+            padding: 8px 30px 8px 10px; /* Adjust padding for better appearance */
+            border: 1px solid #373E0E;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #fff;
+            width: 300px; /* Adjust width as needed */
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 10px; /* Adjust the position of the icon */
+            top: 50%;
+            transform: translateY(-50%);
+            color: #BED62F;
+            width: 20px; /* Set width and height of the icon */
+            height: 20px;
+        }
+
+        /* Center alignment for specific row header cells */
+        #gasStationTable tr:first-child th {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="searchBar">
+        <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search by District or Retail Outlet">
+        <img class="search-icon" src="././Images/Searchicon.svg" alt="Search Icon">
+    </div>
+
+    <table id="gasStationTable">
+        <tr>
+            <th>Retail Outlet</th>
+            <th>City/Location</th>
+            <th>HSD</th>
+            <th>PMG</th>
+        </tr>
+    </table>
+
+    <script src="gasstations.js"></script>
+    <script>
+        // Function to group stations by district
+        function groupByDistrict(data) {
+            const groupedStations = {};
+            data.forEach(station => {
+                const district = station.District;
+                if (!groupedStations[district]) {
+                    groupedStations[district] = [];
+                }
+                groupedStations[district].push(station);
+            });
+            return groupedStations;
+        }
+
+        // Function to generate table
+        function generateTable(data) {
+            let html = '';
+            // Sort district names alphabetically
+            const sortedDistricts = Object.keys(data).sort();
+            sortedDistricts.forEach(district => {
+                html += `<tr><td colspan="4"><strong class="city-row">${district}</strong></td></tr>`;
+                data[district].forEach((station, index) => {
+                    const { CusDesc, HSDPrice, PMGPrice } = station;
+                    // Add 'city' class to the second column to apply border
+                    const cityClass = index === 0 ? 'class="city"' : '';
+                    html += `<tr><td>${CusDesc}</td><td ${cityClass}>${district}</td><td>${HSDPrice}</td><td>${PMGPrice}</td></tr>`;
+                });
+            });
+            return html;
+        }
+
+        // Insert table data into the table
+        const table = document.getElementById('gasStationTable');
+        const groupedStations = groupByDistrict(GasStations);
+        table.innerHTML += generateTable(groupedStations);
+
+        // Function to filter table rows based on input
+        function searchTable() {
+            const input = document.getElementById('searchInput').value.toUpperCase();
+            const rows = document.querySelectorAll('#gasStationTable tr');
+            let headerFound = false; // To keep track if the table header row is found
+            rows.forEach(row => {
+                if (row.querySelector('th')) { // Check if the row contains table header cells
+                    row.style.display = ''; // Display the table header row
+                    headerFound = true; // Set headerFound to true
+                } else {
+                    const cells = row.getElementsByTagName('td');
+                    let found = false;
+                    for (let i = 0; i < cells.length; i++) {
+                        const cell = cells[i];
+                        if (cell) {
+                            const textValue = cell.textContent || cell.innerText;
+                            if (textValue.toUpperCase().indexOf(input) > -1) {
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+                    row.style.display = found ? '' : 'none';
+                }
+            });
+            // If the header row was not found and there are no results, display it
+            if (!headerFound && input.trim() === '') {
+                const headerRow = document.querySelector('#gasStationTable tr:first-child');
+                headerRow.style.display = '';
+            }
+        }
+    </script>
+</body>
+</html>

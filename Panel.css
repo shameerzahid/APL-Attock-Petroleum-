@@ -180,8 +180,27 @@ body {
 }
 
 .gm-style-mtc-bbw {
-    top: 80px !important;
-    left: 20px !important;
+    top: 10px !important;
+    left: 10px !important;
+}
+.gm-style-mtc ul li {
+    border-bottom: none !important;
+}
+.gm-style-mtc-bbw .gm-style-mtc:last-of-type>button {
+    background-color: white !important;
+}
+.gm-style-mtc-bbw .gm-style-mtc:last-of-type>button:hover {
+    background-color: rgb(235, 235, 235) !important;
+}
+
+
+.gm-style-iw-t button
+{
+    border: none;
+}
+.gm-ui-hover-effect
+{
+    border: 2px solid transparent !important;
 }
 
 .Dynamicsearch-btn {
