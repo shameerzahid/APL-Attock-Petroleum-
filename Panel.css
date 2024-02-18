@@ -292,6 +292,11 @@ p {
     border: 1px solid gray;
     border-radius: 5px;
 }
+.scroll
+{
+    max-height: 40vh;
+    overflow: auto;
+}
 
 .btns {
     display: flex;
@@ -316,3 +321,45 @@ p {
     margin-top: 2px;
     cursor: pointer;
 }
+@media screen and (max-width: 883px) {
+    #map-panel {
+position: absolute;
+right: 1%;
+        }
+        .expanded
+        {
+            width: 30% !important;
+        }
+  }
+  @media screen and (max-width: 580px) {
+    #map-panel {
+position: absolute;
+/* right: 10%; */
+        }
+        .expanded
+        {
+            width: 50% !important;
+        }
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 22px 8px 3px !important;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 26px;
+            border-bottom: 1px solid #bababa;
+          }
+  }
+  @media screen and (max-width: 428px) {
+    #map-panel {
+position: absolute;
+top: 10%;
+/* right: 10%; */
+        }
+        .expanded
+        {
+            width: 60% !important;
+        }
+  }
+  

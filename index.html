@@ -28,13 +28,13 @@
   <title>APL Station Locator</title>
 </head>
 <style>
-  .mainbody {
-    height: 90vh;
-    background-color: transparent;
-    width: 22%;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
+.mainbody {
+  min-height: 78vh; 
+  background-color: transparent;
+  width: 22%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 
     #bookmarkContainer {
       max-width: 600px;
@@ -83,7 +83,7 @@
         ATTOCK
         <p class="logo-1">FUEL LOCATOR</p>
       </div> -->
-      <div id="map-panel" class="mainbody tablecontainer" style="width: 5%;">
+      <div id="map-panel" class="tablecontainer" style="width: 5%;">
         <div class="locator">
           <div class="header">
             <p class="apl-text hidden-span" style="display: none;">APL Fuel Locator</p>
@@ -132,8 +132,9 @@
                     <img class="mark-img" src="./Images/mark.svg" alt="" />
                   </div>
                 </div>
+                <div class="scroll">
                 <div class="listmain" id="search-results">
-                </div>
+                </div> </div>
               </div>
 
             <!--Dynamic search -->
@@ -217,7 +218,6 @@
                 </button>
               </div>
               <p class="results">Search Results</p>
-
               <div class="listmain" id="Dynamicsearch-results">
               </div>
 
@@ -316,10 +316,12 @@
   </div>
   <!-- Add this function to your script -->
   <script>
+    
     function expandPanelWidth() {
       var panel = document.getElementById('map-panel');
       panel.classList.add('expanded');
       panel.style.width = '22%';
+      
       // Show text
       var textElements = document.querySelectorAll('.text-hidden');
       textElements.forEach(function(element) {

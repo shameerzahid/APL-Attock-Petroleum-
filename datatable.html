@@ -77,8 +77,8 @@
         <tr>
             <th>Retail Outlet</th>
             <th>City/Location</th>
-            <th>HSD</th>
-            <th>PMG</th>
+            <th>HSD Price</th>
+            <th>PMG Price</th>
         </tr>
     </table>
 
@@ -105,10 +105,10 @@
             sortedDistricts.forEach(district => {
                 html += `<tr><td colspan="4"><strong class="city-row">${district}</strong></td></tr>`;
                 data[district].forEach((station, index) => {
-                    const { CusDesc, HSDPrice, PMGPrice } = station;
+                    const { CusDesc, HSDPrice, PMGPrice, City } = station;
                     // Add 'city' class to the second column to apply border
                     const cityClass = index === 0 ? 'class="city"' : '';
-                    html += `<tr><td>${CusDesc}</td><td ${cityClass}>${district}</td><td>${HSDPrice}</td><td>${PMGPrice}</td></tr>`;
+                    html += `<tr><td>${CusDesc}</td><td ${cityClass}>${City}</td><td>${HSDPrice}</td><td>${PMGPrice}</td></tr>`;
                 });
             });
             return html;
