@@ -6,25 +6,13 @@ function toggleSearch() {
   var Bookmark = document.getElementById("open-Bookmark");
   var downImage = document.getElementById("searchDownImage");
   var dynamisearchDownImage = document.getElementById("show-DynamicSearch");
-if (dynamisearchDownImage.src !== "./Images/down.svg") {
-  dynamisearchDownImage.src = "./Images/down.svg";
-}
-
-var RouteDownImage = document.getElementById("show-RoutePlanner");
-if (RouteDownImage.src !== "./Images/down.svg") {
-  RouteDownImage.src = "./Images/down.svg";
-}
-
+  dynamisearchDownImage.src = "./Images/down.png";
+  var RouteDownImage = document.getElementById("show-RoutePlanner");
+  RouteDownImage.src = "./Images/down.png";
 var keywordDownImage = document.getElementById("show-keywordSearch");
-if (keywordDownImage.src !== "./Images/down.svg") {
-  keywordDownImage.src = "./Images/down.svg";
-}
-
+keywordDownImage.src = "./Images/down.png";
 var bookmarkDownImage = document.getElementById("show-Bookmark");
-if (bookmarkDownImage.src !== "./Images/down.svg") {
-  bookmarkDownImage.src = "./Images/down.svg";
-}
-
+bookmarkDownImage.src = "./Images/down.png";
   // Ensure initial display state is set correctly when the page loads
   if (searchDiv.style.display === "") {
       searchDiv.style.display = "none"; // Set initial display state to "none"
@@ -36,7 +24,7 @@ if (bookmarkDownImage.src !== "./Images/down.svg") {
   KeywordSearch.style.display = "none";
   Bookmark.style.display = "none";
   // Rotate the down image based on the display status of the search div
-  downImage.src = searchDiv.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
+  downImage.src = searchDiv.style.display === "none" ? "./Images/Down.png" : "./Images/up.svg";
   // Get a reference to the open-DynamicSearch div
 }
   //   open dynamic search
@@ -58,19 +46,15 @@ if (bookmarkDownImage.src !== "./Images/down.svg") {
     KeywordSearch.style.display = "none";
     Bookmark.style.display = "none";
 // Get the open-search div
-function setDownImageIfNotSet(elementId, imagePath) {
-  var imageElement = document.getElementById(elementId);
-  if (imageElement && imageElement.src !== imagePath) {
-    imageElement.src = imagePath;
-  }
-}
-
-setDownImageIfNotSet("show-RoutePlanner", "./Images/down.svg");
-setDownImageIfNotSet("searchDownImage", "./Images/down.svg");
-setDownImageIfNotSet("show-keywordSearch", "./Images/down.svg");
-setDownImageIfNotSet("show-Bookmark", "./Images/down.svg");
-
-    downImage2.src = dynamicSearchDiv.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
+var RouteDownImage = document.getElementById("show-RoutePlanner");
+RouteDownImage.src = "./Images/down.png";
+var searchDownImage = document.getElementById("searchDownImage");
+searchDownImage.src = "./Images/down.png";
+var keywordDownImage = document.getElementById("show-keywordSearch");
+keywordDownImage.src = "./Images/down.png";
+var bookmarkDownImage = document.getElementById("show-Bookmark");
+bookmarkDownImage.src = "./Images/Down.png";
+    downImage2.src = dynamicSearchDiv.style.display === "none" ? "./Images/Down.png" : "./Images/up.svg";
   }
   //   open RoutePlanning
   function toggleRoutePlanning() {
@@ -95,19 +79,15 @@ setDownImageIfNotSet("show-Bookmark", "./Images/down.svg");
     dynamicSearchDiv.style.display = "none";
     KeywordSearch.style.display = "none";
     Bookmark.style.display = "none";
-    function setDownImageIfNotSet(elementId, imagePath) {
-      var imageElement = document.getElementById(elementId);
-      if (imageElement && imageElement.src !== imagePath) {
-        imageElement.src = imagePath;
-      }
-    }
-    
-    setDownImageIfNotSet("searchDownImage", "./Images/down.svg");
-    setDownImageIfNotSet("show-DynamicSearch", "./Images/down.svg");
-    setDownImageIfNotSet("show-keywordSearch", "./Images/down.svg");
-    setDownImageIfNotSet("show-Bookmark", "./Images/down.svg");
-    
-    downImage2.src = RoutePlanning.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
+    var searchDownImage = document.getElementById("searchDownImage");
+  searchDownImage.src = "./Images/down.png";
+    var dynamisearchDownImage = document.getElementById("show-DynamicSearch");
+  dynamisearchDownImage.src = "./Images/down.png";
+var keywordDownImage = document.getElementById("show-keywordSearch");
+keywordDownImage.src = "./Images/down.png";
+var bookmarkDownImage = document.getElementById("show-Bookmark");
+bookmarkDownImage.src = "./Images/down.png";
+    downImage2.src = RoutePlanning.style.display === "none" ? "./Images/Down.png" : "./Images/up.svg";
   }
   function reloadPageAndToggleKeywordSearch() {
     // Reload the page
@@ -135,19 +115,15 @@ setDownImageIfNotSet("show-Bookmark", "./Images/down.svg");
     dynamicSearchDiv.style.display = "none";
     RoutePlanning.style.display = "none";
     Bookmark.style.display = "none";
-    function setDownImageIfNotSet(elementId, imagePath) {
-      var imageElement = document.getElementById(elementId);
-      if (imageElement && imageElement.src !== imagePath) {
-        imageElement.src = imagePath;
-      }
-    }
-    
-    setDownImageIfNotSet("searchDownImage", "./Images/down.svg");
-    setDownImageIfNotSet("show-DynamicSearch", "./Images/down.svg");
-    setDownImageIfNotSet("show-RoutePlanner", "./Images/down.svg");
-    setDownImageIfNotSet("show-Bookmark", "./Images/down.svg");
-    
-    downImage2.src = KeywordSearch.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
+    var searchDownImage = document.getElementById("searchDownImage");
+    searchDownImage.src = "./Images/down.png";
+      var dynamisearchDownImage = document.getElementById("show-DynamicSearch");
+    dynamisearchDownImage.src = "./Images/down.png";
+    var RouteDownImage = document.getElementById("show-RoutePlanner");
+    RouteDownImage.src = "./Images/down.png";
+  var bookmarkDownImage = document.getElementById("show-Bookmark");
+  bookmarkDownImage.src = "./Images/down.png";
+    downImage2.src = KeywordSearch.style.display === "none" ? "./Images/Down.png" : "./Images/up.svg";
 }
   function togglefilter(){
       var Bookmark = document.getElementById("filter");
@@ -175,19 +151,15 @@ setDownImageIfNotSet("show-Bookmark", "./Images/down.svg");
     dynamicSearchDiv.style.display = "none";
     RoutePlanning.style.display = "none";
     KeywordSearch.style.display = "none";
-    function setDownImageIfNotSet(elementId, imagePath) {
-      var imageElement = document.getElementById(elementId);
-      if (imageElement && imageElement.src !== imagePath) {
-        imageElement.src = imagePath;
-      }
-    }
-    
-    setDownImageIfNotSet("searchDownImage", "./Images/down.svg");
-    setDownImageIfNotSet("show-DynamicSearch", "./Images/down.svg");
-    setDownImageIfNotSet("show-RoutePlanner", "./Images/down.svg");
-    setDownImageIfNotSet("show-keywordSearch", "./Images/down.svg");
-    
-    downImage2.src = Bookmark.style.display === "none" ? "./Images/Down.svg" : "./Images/up.svg";
+    var searchDownImage = document.getElementById("searchDownImage");
+    searchDownImage.src = "./Images/down.png";
+      var dynamisearchDownImage = document.getElementById("show-DynamicSearch");
+    dynamisearchDownImage.src = "./Images/down.png";
+    var RouteDownImage = document.getElementById("show-RoutePlanner");
+    RouteDownImage.src = "./Images/down.png";
+    var keywordDownImage = document.getElementById("show-keywordSearch");
+    keywordDownImage.src = "./Images/down.png";
+    downImage2.src = Bookmark.style.display === "none" ? "./Images/Down.png" : "./Images/up.svg";
 }
   var checkboxes = document.querySelectorAll(".checkbox.custom");
   checkboxes.forEach(function (checkbox) {
