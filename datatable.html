@@ -29,7 +29,7 @@
       }
 
       #gasStationTable td[colspan="4"] {
-        background-color: black;
+        background-color: #BED62F;
         color: #fff;
         font-weight: bold;
       }
@@ -41,7 +41,6 @@
 
       /* CSS for search bar */
       #searchBar {
-        margin-bottom: 10px;
         display: flex;
         justify-content: flex-end; /* Align to the right */
         position: relative; /* Ensure the icon is positioned relative to the search bar */
@@ -78,13 +77,19 @@
       .heading
       {
         font-size: 20px;
+        width: 23%;
+        font-weight: 700;
+        padding-top: 6px;
+        margin-bottom: 1%;
+        letter-spacing:0.5px;
+        border-bottom: 1px solid black;
       }
     </style>
   </head>
   <body>
     <div class="header">
       <div class="heading">
-        ATTOCK PETROLEUM LIMITED RETAIL PRICES EFFECTIVE FROM FEBRUARY 01, 2024
+        ATTOCK PETROLEUM LIMITED RETAIL PRICES EFFECTIVE
       </div>
       <div id="searchBar">
         <input
@@ -110,7 +115,7 @@
       </tr>
     </table>
 
-    <script src="gasstations.js"></script>
+  <script src="./GasStations.js"></script>
     <script>
       // Function to group stations by district
       function groupByDistrict(data) {
