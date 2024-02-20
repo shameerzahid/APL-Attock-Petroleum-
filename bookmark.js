@@ -1,4 +1,5 @@
 // Function to retrieve bookmarks from cookies
+var infoWindow = new google.maps.InfoWindow();
 function getBookmarks() {
   var decodedCookie = decodeURIComponent(document.cookie);
   var cookieArray = decodedCookie.split(";");

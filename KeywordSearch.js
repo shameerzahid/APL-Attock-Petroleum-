@@ -46,6 +46,10 @@ function searchByKeyword() {
       goImg.alt = '';
       // Attach an event listener to the "Go" image to show the location on the map
       goImg.addEventListener('click', function () {
+        console.log("CusDesc:", station.CusDesc);
+        console.log("cuscode:", station.CusCode);
+        console.log("Latitude:",station.Lati);
+        console.log("Longitude:", station.longi);
         showOnMap(station.Lati, station.longi, station);
       });
       goDiv.appendChild(goImg);
@@ -65,73 +69,163 @@ function searchByKeyword() {
   }
 }
 
+// function showOnMap(latitude, longitude, station) {
+//   var location = new google.maps.LatLng(latitude, longitude);
+//   map.setCenter(location);
+
+//   // Create a marker at the specified location
+//   var marker = new google.maps.Marker({
+//     position: location,
+//     map: map,
+//     title: station.CusDesc // You can customize the title based on your requirement
+//   });
+
+//   // Calculate distance (assuming calculateDistance and currentLocation are defined)
+//   var distance = calculateDistance(currentLocation, {
+//     lat: parseFloat(station.Lati),
+//     lng: parseFloat(station.longi),
+//   });
+
+//   // Create the popup content similar to displaySearchedStationInformation
+//   var infoContent = "<div class='click-window'>";
+//   infoContent += "<h2 class='info-title'>" + station.CusDesc + "</h2>";
+//   infoContent += "<h2 class='info-heading'>Site ID:</h2>";
+//   infoContent += "<p class='info-text'>" + station.CusCode + "</p>";
+//   infoContent += "<h2 class='info-heading'>Distance:</h2>";
+//   infoContent +=
+//     "<p class='info-text'>Distance: " + distance.toFixed(2) + " km</p>";
+//   infoContent += "<h2 class='info-heading'>Coordinates:</h2>";
+//   infoContent +=
+//     "<p class='info-text'>" + station.Lati + " , " + station.longi + "</p>";
+//   infoContent += "<h2 class='info-heading'>Fuel:</h2>";
+//   infoContent +=
+//     "<p class='info-text'>" +
+//     Object.keys(station["Fuel Types"][0]).join(", ") +
+//     "</p>";
+//      // add image here
+// // Function to check if a gas station is bookmarked
+// function isGasStationBookmarked(CusDesc) {
+//   var existingBookmarks = getBookmarks();
+//   console.log(existingBookmarks)
+//   return existingBookmarks.some(function(bookmark) {
+//     return (bookmark.CusDesc === CusDesc)
+//   });
+// }
+
+// // Generate infoContent with dynamic bookmark button text
+// var bookmarkText = isGasStationBookmarked(gasStation.CusDesc) ? "Remove From Bookmark" : "Add To Bookmark";
+// var bookmarkImageSrc = isGasStationBookmarked(gasStation.CusDesc) ? "./Images/removefrombookmark.svg" : "./Images/addtobook.svg";
+// infoContent += "<div class='my-bookmark' onclick='addToBookmark(\"" + gasStation.CusDesc + "\", \"" + gasStation.CusAddress + "\", " + gasStation.Lati + ", " + gasStation.longi + ")'><img class='book-img' src='" + bookmarkImageSrc + "'>" + bookmarkText + "</div>";
+
+//   infoContent += "<h2 class='info-heading'>Services</h2>";
+
+//   // Assuming gasStation.Services is available
+//   station.Services.forEach((service) => {
+//     infoContent +=
+//       "<p class='info-text'>Service: " + service.ServiceDes + "</p>";
+//   });
+
+//   infoContent += "<h2 class='info-heading'>Contact:</h2>";
+//   infoContent += "<p class='info-text'>" + station.CusAddress + "</p>";
+//   infoContent += "</div>";
+
+//   var infoWindow = new google.maps.InfoWindow();
+
+//   // Set the content of the InfoWindow
+//   infoWindow.setContent(infoContent);
+//   // Open the InfoWindow
+//   infoWindow.open(map, marker);
+// }
 function showOnMap(latitude, longitude, station) {
   var location = new google.maps.LatLng(latitude, longitude);
   map.setCenter(location);
 
-  // Create a marker at the specified location
-  var marker = new google.maps.Marker({
-    position: location,
-    map: map,
-    title: station.CusDesc // You can customize the title based on your requirement
+  // Create an InfoWindow with HTML content showing latitude and longitude
+  var infoWindow = new google.maps.InfoWindow({
+   content: generateInfoWindowContent(station)
+   
   });
 
+  // Open the InfoWindow at the specified location
+  infoWindow.setPosition(location);
+  infoWindow.open(map);
+}
+
+
+function generateInfoWindowContent(station) {
+  var content = "<div class='click-window'>";
+  content += "<h2 class='info-title'>" + station.CusDesc + "</h2>"; // Station name
+  content += "<h2 class='info-heading'>Site ID:</h2>";
+  content += "<p class='info-text'>" + station.CusCode + "</p>"; // Site ID
   // Calculate distance (assuming calculateDistance and currentLocation are defined)
   var distance = calculateDistance(currentLocation, {
     lat: parseFloat(station.Lati),
     lng: parseFloat(station.longi),
   });
-
-  // Create the popup content similar to displaySearchedStationInformation
-  var infoContent = "<div class='click-window'>";
-  infoContent += "<h2 class='info-title'>" + station.CusDesc + "</h2>";
-  infoContent += "<h2 class='info-heading'>Site ID:</h2>";
-  infoContent += "<p class='info-text'>" + station.CusCode + "</p>";
-  infoContent += "<h2 class='info-heading'>Distance:</h2>";
-  infoContent +=
-    "<p class='info-text'>Distance: " + distance.toFixed(2) + " km</p>";
-  infoContent += "<h2 class='info-heading'>Coordinates:</h2>";
-  infoContent +=
-    "<p class='info-text'>" + station.Lati + " , " + station.longi + "</p>";
-  infoContent += "<h2 class='info-heading'>Fuel:</h2>";
-  infoContent +=
-    "<p class='info-text'>" +
-    Object.keys(station["Fuel Types"][0]).join(", ") +
-    "</p>";
-     // add image here
-// Function to check if a gas station is bookmarked
-function isGasStationBookmarked(CusDesc) {
-  var existingBookmarks = getBookmarks();
-  console.log(existingBookmarks)
-  return existingBookmarks.some(function(bookmark) {
-    return (bookmark.CusDesc === CusDesc)
-  });
-}
-
-// Generate infoContent with dynamic bookmark button text
-var bookmarkText = isGasStationBookmarked(gasStation.CusDesc) ? "Remove From Bookmark" : "Add To Bookmark";
-var bookmarkImageSrc = isGasStationBookmarked(gasStation.CusDesc) ? "./Images/removefrombookmark.svg" : "./Images/addtobook.svg";
-infoContent += "<div class='my-bookmark' onclick='addToBookmark(\"" + gasStation.CusDesc + "\", \"" + gasStation.CusAddress + "\", " + gasStation.Lati + ", " + gasStation.longi + ")'><img class='book-img' src='" + bookmarkImageSrc + "'>" + bookmarkText + "</div>";
-
-  infoContent += "<h2 class='info-heading'>Services</h2>";
-
-  // Assuming gasStation.Services is available
+  content += "<h2 class='info-heading'>Distance:</h2>";
+  content += "<p class='info-text'>Distance: " + distance.toFixed(2) + " km</p>"; // Distance
+  content += "<h2 class='info-heading'>Coordinates:</h2>";
+  content += "<p class='info-text'>" + station.Lati + " , " + station.longi + "</p>"; // Coordinates
+  content += "<h2 class='info-heading'>Fuel:</h2>";
+  content += "<p class='info-text'>" + Object.keys(station["Fuel Types"][0]).join(", ") + "</p>"; // Fuel types
+  // Function to check if a gas station is bookmarked
+  function isGasStationBookmarked(CusDesc) {
+    var existingBookmarks = getBookmarks();
+    console.log(existingBookmarks)
+    return existingBookmarks.some(function(bookmark) {
+      return (bookmark.CusDesc === CusDesc)
+    });
+  }
+  // Generate infoContent with dynamic bookmark button text
+  var bookmarkText = isGasStationBookmarked(station.CusDesc) ? "Remove From Bookmark" : "Add To Bookmark";
+  var bookmarkImageSrc = isGasStationBookmarked(station.CusDesc) ? "./Images/removefrombookmark.svg" : "./Images/addtobook.svg";
+  content += "<div class='my-bookmark' onclick='addToBookmark(\"" + station.CusDesc + "\", \"" + station.CusAddress + "\", " + station.Lati + ", " + station.longi + ")'><img class='book-img' src='" + bookmarkImageSrc + "'>" + bookmarkText + "</div>"; // Bookmarking functionality
+  content += "<h2 class='info-heading'>Services</h2>";
+  // Assuming station.Services is available
   station.Services.forEach((service) => {
-    infoContent +=
-      "<p class='info-text'>Service: " + service.ServiceDes + "</p>";
-  });
-
-  infoContent += "<h2 class='info-heading'>Contact:</h2>";
-  infoContent += "<p class='info-text'>" + station.CusAddress + "</p>";
-  infoContent += "</div>";
-
-  var infoWindow = new google.maps.InfoWindow();
-
-  // Set the content of the InfoWindow
-  infoWindow.setContent(infoContent);
-  // Open the InfoWindow
-  infoWindow.open(map, marker);
+    content += "<p class='info-text'>Service: " + service.ServiceDes + "</p>";
+  }); // Services
+  content += "<h2 class='info-heading'>Contact:</h2>";
+  content += "<p class='info-text'>" + station.CusAddress + "</p>"; // Contact information
+  content += "</div>";
+  return content;
 }
+
+
+// function generateInfoWindowContent(station) {
+//   var distance = calculateDistance(currentLocation, {
+//     lat: parseFloat(station.Lati),
+//     lng: parseFloat(station.longi),
+//   });
+
+//   var infoContent = "<div class='click-window'>";
+//   infoContent += "<h2 class='info-title'>" + station.CusDesc + "</h2>";
+//   infoContent += "<h2 class='info-heading'>Site ID:</h2>";
+//   infoContent += "<p class='info-text'>" + station.CusCode + "</p>";
+//   infoContent += "<h2 class='info-heading'>Distance:</h2>";
+//   infoContent += "<p class='info-text'>Distance: " + distance.toFixed(2) + " km</p>";
+//   infoContent += "<h2 class='info-heading'>Coordinates:</h2>";
+//   infoContent += "<p class='info-text'>" + station.Lati + " , " + station.longi + "</p>";
+//   infoContent += "<h2 class='info-heading'>Fuel:</h2>";
+//   infoContent += "<p class='info-text'>" + Object.keys(station["Fuel Types"][0]).join(", ") + "</p>";
+//   // Add image here
+//   var bookmarkText = isGasStationBookmarked(station.CusDesc) ? "Remove From Bookmark" : "Add To Bookmark";
+//   var bookmarkImageSrc = isGasStationBookmarked(station.CusDesc) ? "./Images/removefrombookmark.svg" : "./Images/addtobook.svg";
+//   infoContent += "<div class='my-bookmark' onclick='addToBookmark(\"" + station.CusDesc + "\", \"" + station.CusAddress + "\", " + station.Lati + ", " + station.longi + ")'><img class='book-img' src='" + bookmarkImageSrc + "'>" + bookmarkText + "</div>";
+
+//   infoContent += "<h2 class='info-heading'>Services</h2>";
+
+//   // Assuming station.Services is available
+//   station.Services.forEach((service) => {
+//     infoContent += "<p class='info-text'>Service: " + service.ServiceDes + "</p>";
+//   });
+
+//   infoContent += "<h2 class='info-heading'>Contact:</h2>";
+//   infoContent += "<p class='info-text'>" + station.CusAddress + "</p>";
+//   infoContent += "</div>";
+
+//   return infoContent;
+// }
 
 var bookmarks = [];
 
