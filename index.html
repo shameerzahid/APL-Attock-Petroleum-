@@ -28,53 +28,110 @@
   <title>APL Station Locator</title>
 </head>
 <style>
-.mainbody {
-  min-height: 78vh; 
-  background-color: transparent;
-  width: 22%;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-    #bookmarkContainer {
-      max-width: 600px;
-      margin: 20px auto;
-      padding: 10px;
-      border: 1px solid #ccc;
-    }
-    .bookmarkItem {
-      margin-bottom: 10px;
-    }
-    .bookmarkButton {
-      cursor: pointer;
-      background-color: #4caf50;
-      color: white;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-    }
-    .logo {
-      color: #fb4642;
-      position: absolute;
-      top: 5%;
-      left: 30px;
-      letter-spacing: -1.5px;
-      z-index: 999;
-      font-weight: 600;
-      font-size: 18px;
-    }
-    .logo-1 {
-      color: #fb4642;
-      font-size: 26px;
-      letter-spacing: -1.5px;
-      font-weight: 700;
-      line-height: 26px;
-      width: 200px;
-    }
-    .dropdown{
-      margin-top: 10px !important;
-    }
-  </style>
+  .mainbody {
+    min-height: 78vh;
+    background-color: transparent;
+    width: 22%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .show-Apl{
+    background: #BED62F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top:  10px ;
+    padding-bottom: 10px;
+  }
+  .show-Apl-img{
+    border-bottom: 1px solid gray;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top:  15px ;
+    padding-bottom: 15px;
+    margin: 0 auto;
+  }
+/* .arrow-icon{
+display: none;
+} */
+  #bookmarkContainer {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  .bookmarkItem {
+    margin-bottom: 10px;
+  }
+  .bookmarkButton {
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+  }
+  .logo {
+    color: #FB4642;
+    position: absolute;
+    top: 5%;
+    left: 30px;
+    letter-spacing: -1.5px;
+    z-index: 999;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .logo-1 {
+    color: #FB4642;
+    font-size: 26px;
+    letter-spacing: -1.5px;
+    font-weight: 700;
+    line-height: 26px;
+    width: 200px;
+  }
+  .dropdown {
+    margin-top: 10px !important;
+  }
+  .show-APL{
+    font-weight: 600;
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    /* margin-right: 10px; */
+    display: flex;
+    /* background-color: #4CAF50; */
+right: 15px !important;
+    align-items: center;
+    font-size: 16px;
+  }
+  .relative{
+    position: relative;
+    /* background: #000; */
+  }
+  .show-img{
+    /* border: 2px solid red; */
+    width: 25px;
+    height: 13px;
+    font-weight: 800;
+    /* margin-left: 10px; */
+  }
+  .small-img{
+ /* margin-left: 10px; */
+  }
+  .hide-img{
+    cursor: pointer;
+    width: 20px;
+    margin-right: 13px;
+    height: 10px;
+    margin-top: -8px;
+    font-weight: bold;
+  }
+  li{
+    cursor: pointer;
+  }
+</style>
   <body>
     <div id="map-container" >
       
@@ -83,13 +140,14 @@
         ATTOCK
         <p class="logo-1">FUEL LOCATOR</p>
       </div> -->
-      <div id="map-panel" class="tablecontainer" style="width: 5%;">
+      <div id="map-panel" class="tablecontainer" style="width: 22%;">
         <div class="locator">
           <div class="header">
-            <p class="apl-text hidden-span" style="display: none;">APL Fuel Locator</p>
+            <p class="apl-text hidden-span" > <span onclick="hide()" class="hide-img">
+              <svg fill="#000000" font width="15px" height="13px" viewBox="0 0 512 512" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><polygon points="150.46 478 129.86 456.5 339.11 256 129.86 55.49 150.46 34 382.14 256 150.46 478" fill="white"/></svg></span>APL Fuel Locator</p>
             <p class="refresh-text center" onclick="refreshMap()">
               <span class="refresh-img"><img src="./Images/refresh.svg"  /></span
-              ><span class="hidden-span" style="display: none;">Refresh All</span>
+              ><span class="hidden-span" >Refresh All</span>
             </p>
           </div>
           <div class="body">
@@ -100,7 +158,7 @@
                   <span class="li-images"
                     ><img src="./Images/location.svg" alt="location"
                   /></span>
-                <span class="hidden-span" style="display: none;">Search</span> 
+                <span class="hidden-span">Search</span> 
                 </p>
                 <p id="show-search">
                   <img
@@ -141,7 +199,7 @@
             <li style="cursor: pointer;" onclick="toggleDynamicSearch()">
               <p class="center" style="cursor: pointer">
                 <span class="li-images"><img src="./Images/filter.svg" alt="location" /></span>
-             <span class="hidden-span" style="display: none;"> Dynamic Search</span>  
+             <span class="hidden-span" > Dynamic Search</span>  
               </p>
               <p>
                 <img id="show-DynamicSearch" class="dropdown" src="./Images/Down.svg" alt="arrow" />
@@ -232,7 +290,7 @@
             <li style="cursor: pointer;" onclick="toggleRoutePlanning()">
               <p class="center" style="cursor: pointer">
                 <span class="li-images"><img src="./Images/Route.svg" alt="location" /></span>
-             <span class="hidden-span" style="display: none;">              Route Planner
+             <span class="hidden-span" >              Route Planner
             </span>  
               </p>
               <p>
@@ -262,7 +320,7 @@
             <li style="cursor: pointer;" onclick="toggleKeywordSearch()">
               <p class="center" style="cursor: pointer">
                 <span class="li-images"><img src="./Images/Keyword.svg" alt="location" /></span>
-                <span class="hidden-span" style="display: none;">              Keyword Search
+                <span class="hidden-span" >              Keyword Search
                 </span>  
               </p>
               <p>
@@ -286,7 +344,7 @@
             <li style="cursor: pointer;" onclick="togglebookmark()">
               <p class="center" style="cursor: pointer">
                 <span class="li-images"><img class="bookmark" src="./Images/Bookemark.svg" alt="location" /></span>
-                <span class="hidden-span" style="display: none;">              My Bookmarks
+                <span class="hidden-span">              My Bookmarks
                 </span>     
               </p>
               <p>
@@ -313,9 +371,24 @@
         </div>
       </div>
     </div>
+
+    <div style="cursor: pointer;" id="map-panel2" >
+      <div id="showMapPanelButton" class="locator2 "  >
+        <p class="apl-text show-Apl">APL</p>
+        <p class="show-Apl-img"> <img src="./Images/location.svg" alt="location"
+        /></p>
+        <p class="show-Apl-img"><img class="= " src="./Images/filter.svg" alt="location"
+        /></p>
+        <p class="show-Apl-img"><img class="= " src="./Images/Route.svg" alt="location"
+        /></p>
+        <p class="show-Apl-img"><img class="= " src="./Images/Keyword.svg" alt="location"
+        /></p>
+        <p class="show-Apl-img"><img class="= " src="./Images/Bookemark.svg" alt="location" /></p>
+      </div>
+    </div>
   </div>
   <!-- Add this function to your script -->
-  <script>
+  <!-- <script>
     
     function expandPanelWidth() {
       var panel = document.getElementById('map-panel');
@@ -346,10 +419,42 @@
       var mapPanel = document.getElementById('map-panel');
       mapPanel.addEventListener('click', expandPanelWidth);
     });
+  </script> -->
+  
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const mapPanel = document.getElementById('map-panel');
+      const mapPanel2 = document.getElementById('map-panel2');
+      const showMapPanelButton = document.getElementById('showMapPanelButton');
+      const hideImg = document.querySelector('.hide-img');
+      function toggleMapPanels() {
+        if (mapPanel.style.display === 'none') {
+          mapPanel.style.display = 'block';
+          mapPanel2.style.display = 'none';
+        } else {
+          mapPanel.style.display = 'none';
+          mapPanel2.style.display = 'block';
+        }
+      }
+      function toggleMapPanel2() {
+        mapPanel.style.display = 'none';
+        mapPanel2.style.display = 'block';
+      }
+      function showMapPanel() {
+        mapPanel.style.display = 'block';
+        mapPanel2.style.display = 'none';
+      }
+      function showMapPanel2() {
+        mapPanel.style.display = 'none';
+        mapPanel2.style.display = 'block';
+      }
+      showMapPanelButton.addEventListener('click', showMapPanel);
+      hideImg.addEventListener('click', showMapPanel2);
+      // Hide map-panel by default and show map-panel2
+      toggleMapPanel2();
+    });
   </script>
-  
-  
-  
   
 
   <script src="./bookmark.js"></script>
