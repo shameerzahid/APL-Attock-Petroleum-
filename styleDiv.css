@@ -110,7 +110,7 @@ width: 5%;
 }
 .search-here {
   background: #BED62F;
-  padding: 7px 10px  7px 15px ;
+  padding: 7px 10px  7px 0px ;
   display: flex;
   justify-content: space-between;
 }
@@ -129,7 +129,7 @@ width: 5%;
 }
 .Search-input {
   width: 80%;
-  margin-left: 10px;
+  margin-left: 14px;
   /* border: 1px solid red; */
   background: #bed62f;
   display: flex;
@@ -400,7 +400,7 @@ img {
 .line {
   position: absolute;
   top: 40%;
-  left: 5.4%;
+  left: 22px;
 }
 .route-planner {
   max-height: 50vh;
